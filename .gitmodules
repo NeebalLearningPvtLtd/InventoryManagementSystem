@@ -1,0 +1,3 @@
+[submodule "src/main/java/com/kossine/ims/utility/exceltodb"]
+	path = src/main/java/com/kossine/ims/utility/exceltodb
+	url = https://github.com/NeebalLearningPvtLtd/Excel-to-POJO
