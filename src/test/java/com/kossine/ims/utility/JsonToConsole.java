@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.kossine.ims.utility.exceltodb.format.ExcelSheetFormatLoader;
+import com.kossine.ims.utility.excel_to_pojo.format.ExcelSheetFormatLoader;
 
 public class JsonToConsole {
 

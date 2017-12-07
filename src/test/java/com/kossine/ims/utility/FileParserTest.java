@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 import org.junit.Test;
 
 import com.kossine.ims.models.Inventory;
-import com.kossine.ims.utility.exceltodb.FileParser;
+import com.kossine.ims.utility.excel_to_pojo.FileParser;
 
 public class FileParserTest {
 
