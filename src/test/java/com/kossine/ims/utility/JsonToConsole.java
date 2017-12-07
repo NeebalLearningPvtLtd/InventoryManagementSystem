@@ -13,8 +13,8 @@ public class JsonToConsole {
 
 	@Test
 	public void test() throws JsonParseException, JsonMappingException, IOException {
-		File file=new File("/home/jigar/workspace/ims/src/main/java/org/kossine/ims/utility/format.json");
+		File file=new File("/home/jigar/workspace/ims/src/main/java/com/kossine/ims/utility/exceltodb/format.json");
 		ExcelSheetFormatLoader esfl=new ExcelSheetFormatLoader(file);
-		esfl.loadFromJson();
+		System.out.println(esfl.loadFromJson());
 	}
 }
