@@ -1,3 +1,0 @@
-[submodule ""]
-	path = ./src/main/java/com/kossine/ims/utility/
-	url = https://github.com/NeebalLearningPvtLtd/Excel-to-POJO.git
