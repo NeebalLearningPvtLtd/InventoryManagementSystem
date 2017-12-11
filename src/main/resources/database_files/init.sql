@@ -1,26 +1,26 @@
-DROP DATABASE IF EXISTS ims1;
-CREATE database ims1;
-use ims1;
+DROP DATABASE IF EXISTS ims;
+CREATE database ims;
+use ims;
 
 --
 -- Table structure for table `laptop`
 --
 
 CREATE TABLE `laptop` (
-  `id` int(11) primary key NOT NULL AUTO_INCREMENT,
-  `laptoptag` varchar(20)  NOT NULL UNIQUE,
-  `brand` varchar(10) DEFAULT NULL,
+  `id` int(20) primary key NOT NULL AUTO_INCREMENT,
+  `laptop_tag` varchar(50)  NOT NULL UNIQUE,
+  `brand` varchar(50) DEFAULT NULL,
   `model_num` varchar(15) DEFAULT NULL,
-  `serial_num` varchar(20) DEFAULT NULL,
-  `batteryserial_num` varchar(20) DEFAULT NULL,
+  `serial_num` varchar(50) DEFAULT NULL,
+  `battery_serial_num` varchar(50) DEFAULT NULL,
   `dop` date DEFAULT NULL,
   `warranty` tinyint(1) DEFAULT NULL,
   `vt` tinyint(1) DEFAULT NULL,
   `wifi` tinyint(1) DEFAULT NULL,
-  `ram` varchar(5) DEFAULT NULL,
-  `processor` varchar(20) DEFAULT NULL,
-  `hdd` varchar(5) DEFAULT NULL,
-  `supplier` varchar(20) DEFAULT NULL
+  `ram` varchar(50) DEFAULT NULL,
+  `processor` varchar(50) DEFAULT NULL,
+  `hdd` varchar(50) DEFAULT NULL,
+  `supplier` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -29,9 +29,9 @@ CREATE TABLE `laptop` (
 --
 
 CREATE TABLE `laptopusedby` (
-  `id` int(11) primary key NOT NULL AUTO_INCREMENT,
-  `laptop_id` int(11)  UNIQUE,
-  `usedby` varchar(20) NOT NULL,
+  `id` int(20) primary key NOT NULL AUTO_INCREMENT,
+  `laptop_id` int(20)  UNIQUE,
+  `usedby` varchar(50) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   constraint `laptop_fk` FOREIGN key(`laptop_id`) REFERENCES `laptop`(`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -42,14 +42,14 @@ CREATE TABLE `laptopusedby` (
 --
 
 CREATE TABLE `adapter` (
-  `id` int(11) primary key NOT NULL AUTO_INCREMENT,
-  `adaptertag`  varchar(20)  NOT NULL UNIQUE,
-  `brand` varchar(10) DEFAULT NULL,
-  `model_num` varchar(20) DEFAULT NULL,
-  `serial_num` varchar(20) DEFAULT NULL,
+  `id` int(20) primary key NOT NULL AUTO_INCREMENT,
+  `adapter_tag`  varchar(50)  NOT NULL UNIQUE,
+  `brand` varchar(50) DEFAULT NULL,
+  `model_num` varchar(50) DEFAULT NULL,
+  `serial_num` varchar(50) DEFAULT NULL,
   `dop` date DEFAULT NULL,
   `warranty` tinyint(1) DEFAULT NULL,
-  `supplier` varchar(20) DEFAULT NULL
+  `supplier` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -59,9 +59,9 @@ CREATE TABLE `adapter` (
 --
 
 CREATE TABLE `adapterusedby` (
-  `id` int(11) primary key  NOT NULL AUTO_INCREMENT,
-  `adapter_id` int(11) ,
-  `usedby` varchar(20) NOT NULL,
+  `id` int(20) primary key  NOT NULL AUTO_INCREMENT,
+  `adapter_id` int(20) ,
+  `usedby` varchar(50) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   constraint `adapter_fk` FOREIGN key(`adapter_id`) REFERENCES `adapter`(`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -73,13 +73,13 @@ CREATE TABLE `adapterusedby` (
 --
 
 CREATE TABLE `hdd` (
-  `id` int(11) NOT NULL  PRIMARY key AUTO_INCREMENT,
-  `hddtag` varchar(20) NOT NULL UNIQUE,
-  `brand` varchar(10) DEFAULT NULL,
-  `serial_num` varchar(20) DEFAULT NULL,
+  `id` int(20) NOT NULL  PRIMARY key AUTO_INCREMENT,
+  `hdd_tag` varchar(50) NOT NULL UNIQUE,
+  `brand` varchar(50) DEFAULT NULL,
+  `serial_num` varchar(50) DEFAULT NULL,
   `size` varchar(5) DEFAULT NULL,
-  `TYPE` varchar(10) DEFAULT NULL,
-  `location` varchar(10) DEFAULT NULL,
+  `TYPE` varchar(50) DEFAULT NULL,
+  `location` varchar(50) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -90,11 +90,11 @@ CREATE TABLE `hdd` (
 --
 
 CREATE TABLE `keyboard` (
-  `id` int(11) NOT NULL  PRIMARY key AUTO_INCREMENT,
-  `keyboardtag` varchar (20) NOT NULL UNIQUE,
-  `brand` varchar(10) DEFAULT NULL,
-  `serial_num` varchar(20) DEFAULT NULL,
-  `location` varchar(10) DEFAULT NULL,
+  `id` int(20) NOT NULL  PRIMARY key AUTO_INCREMENT,
+  `keyboard_tag` varchar (50) NOT NULL UNIQUE,
+  `brand` varchar(50) DEFAULT NULL,
+  `serial_num` varchar(50) DEFAULT NULL,
+  `location` varchar(50) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -107,13 +107,13 @@ CREATE TABLE `keyboard` (
 --
 
 CREATE TABLE `monitor` (
-  `id` int(11) NOT NULL PRIMARY key AUTO_INCREMENT,
-  `monitortag` varchar(20) NOT NULL UNIQUE,
-  `brand` varchar(10) DEFAULT NULL,
-  `serial_num` varchar(20) DEFAULT NULL,
-  `model_num` varchar(20) DEFAULT NULL,
-  `resolution` varchar(10) DEFAULT NULL,
-  `location` varchar(10) DEFAULT NULL,
+  `id` int(20) NOT NULL PRIMARY key AUTO_INCREMENT,
+  `monitor_tag` varchar(50) NOT NULL UNIQUE,
+  `brand` varchar(50) DEFAULT NULL,
+  `serial_num` varchar(50) DEFAULT NULL,
+  `model_num` varchar(50) DEFAULT NULL,
+  `resolution` varchar(50) DEFAULT NULL,
+  `location` varchar(50) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -125,13 +125,13 @@ CREATE TABLE `monitor` (
 --
 
 CREATE TABLE `motherboard` (
-  `id` int(11) NOT NULL  PRIMARY key AUTO_INCREMENT,
-  `motherboardtag` varchar(20) NOT NULL UNIQUE,
-  `brand` varchar(10) DEFAULT NULL,
-  `serial_num` varchar(20) DEFAULT NULL,
-  `model_num` varchar(20) DEFAULT NULL,
+  `id` int(20) NOT NULL  PRIMARY key AUTO_INCREMENT,
+  `motherboard_tag` varchar(50) NOT NULL UNIQUE,
+  `brand` varchar(50) DEFAULT NULL,
+  `serial_num` varchar(50) DEFAULT NULL,
+  `model_num` varchar(50) DEFAULT NULL,
   `vt` tinyint(1) DEFAULT NULL,
-  `location` varchar(10) DEFAULT NULL,
+  `location` varchar(50) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -142,12 +142,12 @@ CREATE TABLE `motherboard` (
 --
 
 CREATE TABLE `mouse` (
-  `id` int(11) NOT NULL  PRIMARY key AUTO_INCREMENT,
-  `mousetag` varchar(20) NOT NULL UNIQUE,
-  `brand` varchar(10) DEFAULT NULL,
-  `serial_num` varchar(20) DEFAULT NULL,
-  `conntype` varchar(10) DEFAULT NULL,
-  `location` varchar(10) DEFAULT NULL,
+  `id` int(20) NOT NULL  PRIMARY key AUTO_INCREMENT,
+  `mouse_tag` varchar(50) NOT NULL UNIQUE,
+  `brand` varchar(50) DEFAULT NULL,
+  `serial_num` varchar(50) DEFAULT NULL,
+  `conn_type` varchar(50) DEFAULT NULL,
+  `location` varchar(50) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -156,11 +156,11 @@ CREATE TABLE `mouse` (
 --
 
 CREATE TABLE `powersupply` (
-  `id` int(11) NOT NULL  PRIMARY key AUTO_INCREMENT,
-  `powersupplytag` varchar(20) NOT NULL UNIQUE,
-  `brand` varchar(10) DEFAULT NULL,
-  `serial_num` varchar(20) DEFAULT NULL,
-  `location` varchar(10) DEFAULT NULL,
+  `id` int(20) NOT NULL  PRIMARY key AUTO_INCREMENT,
+  `powersupply_tag` varchar(50) NOT NULL UNIQUE,
+  `brand` varchar(50) DEFAULT NULL,
+  `serial_num` varchar(50) DEFAULT NULL,
+  `location` varchar(50) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -171,13 +171,13 @@ CREATE TABLE `powersupply` (
 --
 
 CREATE TABLE `ram` (
-  `id` int(11) NOT NULL  PRIMARY key AUTO_INCREMENT,
-  `ramtag` varchar(20) NOT NULL UNIQUE,
-  `brand` varchar(10) DEFAULT NULL,
-  `serial_num` varchar(20) DEFAULT NULL,
+  `id` int(20) NOT NULL  PRIMARY key AUTO_INCREMENT,
+  `ram_tag` varchar(50) NOT NULL UNIQUE,
+  `brand` varchar(50) DEFAULT NULL,
+  `serial_num` varchar(50) DEFAULT NULL,
   `size` varchar(5) DEFAULT NULL,
-  `TYPE` varchar(10) DEFAULT NULL,
-  `location` varchar(10) DEFAULT NULL,
+  `type` varchar(50) DEFAULT NULL,
+  `location` varchar(50) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -188,11 +188,11 @@ CREATE TABLE `ram` (
 --
 
 CREATE TABLE `wifi` (
-  `id` int(11) NOT NULL  PRIMARY key AUTO_INCREMENT,
-  `wifitag` varchar(20) NOT NULL UNIQUE,
-  `brand` varchar(10) DEFAULT NULL,
-  `model_num` varchar(20) DEFAULT NULL,
-  `location` varchar(10) DEFAULT NULL,
+  `id` int(20) NOT NULL  PRIMARY key AUTO_INCREMENT,
+  `wifi_tag` varchar(50) NOT NULL UNIQUE,
+  `brand` varchar(50) DEFAULT NULL,
+  `model_num` varchar(50) DEFAULT NULL,
+  `location` varchar(50) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -203,19 +203,19 @@ CREATE TABLE `wifi` (
 --
 
 CREATE TABLE `pc` (
-  `id` int(11) NOT NULL  PRIMARY key AUTO_INCREMENT,
-  `pctag` varchar(20) NOT NULL UNIQUE,
-  `ram_id` int(11) DEFAULT NULL,
-  `hdd_id` int(11) DEFAULT NULL,
-  `keyboard_id` int(11) DEFAULT NULL,
-  `mouse_id` int(11) DEFAULT NULL,
-  `powersupply_id` int(11) DEFAULT NULL,
-  `wifi_id` int(11) DEFAULT NULL,
-  `motherboard_id` int(11) DEFAULT NULL,
-  `monitor_id` int(11) DEFAULT NULL,
-  `processor` varchar(20) DEFAULT NULL,
+  `id` int(20) NOT NULL  PRIMARY key AUTO_INCREMENT,
+  `pc_tag` varchar(50) NOT NULL UNIQUE,
+  `ram_id` int(20) DEFAULT NULL,
+  `hdd_id` int(20) DEFAULT NULL,
+  `keyboard_id` int(20) DEFAULT NULL,
+  `mouse_id` int(20) DEFAULT NULL,
+  `powersupply_id` int(20) DEFAULT NULL,
+  `wifi_id` int(20) DEFAULT NULL,
+  `motherboard_id` int(20) DEFAULT NULL,
+  `monitor_id` int(20) DEFAULT NULL,
+  `processor` varchar(50) DEFAULT NULL,
   `vt` tinyint(1) DEFAULT NULL,
-  `location` varchar(10) DEFAULT NULL,
+  `location` varchar(50) DEFAULT NULL,
    CONSTRAINT `hdd_fk` FOREIGN KEY (`hdd_id`) REFERENCES `hdd` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
    CONSTRAINT `keyboard_fk` FOREIGN KEY (`keyboard_id`) REFERENCES `keyboard` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
    CONSTRAINT `monitor_fk` FOREIGN KEY (`monitor_id`) REFERENCES `monitor` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,

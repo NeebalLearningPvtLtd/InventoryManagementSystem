@@ -2,22 +2,45 @@ package com.kossine.ims.models;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity(name = "laptop")
 public class Laptop extends Inventory {
-	private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(updatable=false , nullable=false)
+	private long id;
+	@Column(name = "laptop_tag", unique = true, nullable = false)
 	private String laptopTag;
-	private String modelNum;
+
+	@Column(name = "serial_num")
 	private String serialNum;
+	@Column(name = "brand")
 	private String brand;
+	@Column(name = "battery_serial_num")
 	private String batterySerialNum;
+	@Column(name = "processor")
 	private String processor;
+	@Column(name = "ram")
 	private String ram;
+	@Column(name = "hdd")
 	private String hdd;
+	@Column(name = "supplier")
 	private String supplier;
+	@Column(name = "vt")
 	private boolean vt;
+	@Column(name = "wifi")
 	private boolean wifi;
+	@Column(name = "dop")
 	private LocalDate dop;
+	@Column(name = "warranty")
 	private boolean warranty;
-	private String where;
+	@Column(name = "model_num")
+	private String modelNum;
 
 	public Laptop() {
 		super("Laptop", Laptop.class);
@@ -34,11 +57,11 @@ public class Laptop extends Inventory {
 
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -146,22 +169,9 @@ public class Laptop extends Inventory {
 		this.warranty = warranty;
 	}
 
-	public String getWhere() {
-		return where;
-	}
-
-	public void setWhere(String where) {
-		this.where = where;
-	}
-
 	@Override
 	public String toString() {
-		return "Laptop [id=" + id + ", laptopTag=" + laptopTag + ", modelNum=" + modelNum + ", serialNum=" + serialNum
-				+ ", brand=" + brand + ", batterySerialNum=" + batterySerialNum + ", processor=" + processor + ", ram="
-				+ ram + ", hdd=" + hdd + ", supplier=" + supplier + ", vt=" + vt + ", wifi=" + wifi + ", dop=" + dop
-				+ ", warranty=" + warranty + ", where=" + where + "]";
+		return "Laptop [id=" + id + ", laptopTag=" + laptopTag + "]";
 	}
-
-	
 
 }

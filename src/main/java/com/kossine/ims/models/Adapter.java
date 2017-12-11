@@ -3,7 +3,7 @@ package com.kossine.ims.models;
 import java.time.LocalDate;
 
 public class Adapter extends Inventory {
-	private int id;
+	private long id;
 	private String adapterTag;
 	private String brand;
 	private String serialNum;
@@ -28,11 +28,11 @@ public class Adapter extends Inventory {
 
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -102,10 +102,9 @@ public class Adapter extends Inventory {
 
 	@Override
 	public String toString() {
-		return "Adapter [id=" + id + ", adapterTag=" + adapterTag + ", brand=" + brand + ", serialNum=" + serialNum
-				+ ", modelNum=" + modelNum + ", supplier=" + supplier + ", warranty=" + warranty + ", dop=" + dop
-				+ ", where=" + where + "]";
+		return "Adapter [id=" + id + ", adapterTag=" + adapterTag + "]";
 	}
- 
+
+	
 
 }
