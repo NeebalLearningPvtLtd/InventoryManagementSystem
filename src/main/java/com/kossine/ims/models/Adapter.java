@@ -2,16 +2,34 @@ package com.kossine.ims.models;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
+
+@Entity(name="adapter")
 public class Adapter extends Inventory {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(updatable = false, nullable = false)
 	private long id;
+	@Column(name = "adapter_tag", unique = true, nullable = false)
 	private String adapterTag;
 	private String brand;
+	@Column(name = "serial_num")
 	private String serialNum;
+	@Column(name = "model_num")
 	private String modelNum;
 	private String supplier;
 	private boolean warranty;
+	
+	@Convert(converter = Jsr310JpaConverters.LocalDateConverter.class)
+	@Column(nullable=true)
 	private LocalDate dop;
-	private String where;
 
 	public Adapter() {
 		super("Adapter", Adapter.class);
@@ -92,19 +110,9 @@ public class Adapter extends Inventory {
 		this.warranty = warranty;
 	}
 
-	public String getWhere() {
-		return where;
-	}
-
-	public void setWhere(String where) {
-		this.where = where;
-	}
-
 	@Override
 	public String toString() {
 		return "Adapter [id=" + id + ", adapterTag=" + adapterTag + "]";
 	}
-
-	
 
 }

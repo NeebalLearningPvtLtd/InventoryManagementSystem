@@ -3,16 +3,19 @@ package com.kossine.ims.models;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
+
 @Entity(name = "laptop")
 public class Laptop extends Inventory {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable=false , nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(updatable = false, nullable = false)
 	private long id;
 	@Column(name = "laptop_tag", unique = true, nullable = false)
 	private String laptopTag;
@@ -23,24 +26,19 @@ public class Laptop extends Inventory {
 	private String brand;
 	@Column(name = "battery_serial_num")
 	private String batterySerialNum;
-	@Column(name = "processor")
-	private String processor;
-	@Column(name = "ram")
-	private String ram;
-	@Column(name = "hdd")
-	private String hdd;
-	@Column(name = "supplier")
-	private String supplier;
-	@Column(name = "vt")
-	private boolean vt;
-	@Column(name = "wifi")
-	private boolean wifi;
-	@Column(name = "dop")
-	private LocalDate dop;
-	@Column(name = "warranty")
-	private boolean warranty;
 	@Column(name = "model_num")
 	private String modelNum;
+
+	private String processor;
+	private String ram;
+	private String hdd;
+	private String supplier;
+	private boolean vt;
+	private boolean wifi;
+	@Convert(converter = Jsr310JpaConverters.LocalDateConverter.class)
+	private LocalDate dop;
+
+	private boolean warranty;
 
 	public Laptop() {
 		super("Laptop", Laptop.class);
