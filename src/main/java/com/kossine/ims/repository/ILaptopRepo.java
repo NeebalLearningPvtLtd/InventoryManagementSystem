@@ -6,8 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kossine.ims.models.Laptop;
 
-@Repository
-@Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public interface ILaptopRepo extends IGenericDao<Laptop> {
+
+public interface ILaptopRepo extends IGenericRepo<Laptop> {
 
 }

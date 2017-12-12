@@ -1,8 +1,13 @@
 package com.kossine.ims.repository;
 
-import com.kossine.ims.models.Adapter;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
 
-public class AdapterRepo extends GenericDao<Adapter> implements IAdapterRepo{
+import com.kossine.ims.models.Adapter;
+@Repository
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
+public class AdapterRepo extends GenericRepo<Adapter> implements IAdapterRepo{
 	public AdapterRepo() {
 		this.clazz=Adapter.class;
 	}

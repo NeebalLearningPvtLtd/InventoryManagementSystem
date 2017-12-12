@@ -6,8 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kossine.ims.models.Adapter;
 
-@Repository
-@Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public interface IAdapterRepo extends IGenericDao<Adapter> {
+
+public interface IAdapterRepo extends IGenericRepo<Adapter> {
 
 }
