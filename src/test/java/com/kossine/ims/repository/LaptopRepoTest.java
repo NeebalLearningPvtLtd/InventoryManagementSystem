@@ -1,4 +1,6 @@
-package com.kossine.ims.service;
+package com.kossine.ims.repository;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,13 +10,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ExcelToDBTest {
+public class LaptopRepoTest {
+
 	@Autowired
-	ExcelToDB exceltodb;
-	
+	ILaptopRepo repo;
+
 	@Test
-	public void excelToDBTest() {
-		exceltodb.perform();
+	public void test() {
+
+		assertThat(repo.findByTag("LAP/ADH/BST/0001").getId()).isEqualTo(1);
+		
 	}
 
 }

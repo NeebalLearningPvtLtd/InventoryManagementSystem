@@ -6,8 +6,10 @@ import com.kossine.ims.models.Inventory;
 
 public interface IGenericRepo<T extends Inventory> {
 
-	 T findOne( long id) throws Exception;
-
+	 T findOne( long id) ;
+	 
+	 T findByTag(String tag);
+	 
 	 List<T> findAll();
 
 	 void save( T entity);
@@ -16,5 +18,5 @@ public interface IGenericRepo<T extends Inventory> {
 
 	 void delete( T entity);
 
-	 void deleteById( long entityId) throws Exception;
+	 void deleteById( long entityId) ;
 }

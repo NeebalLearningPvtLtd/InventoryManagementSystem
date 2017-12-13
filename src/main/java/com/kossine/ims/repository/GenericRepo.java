@@ -8,7 +8,6 @@ import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Repository;
 
 import com.kossine.ims.models.Inventory;
 
@@ -28,19 +27,13 @@ public abstract class GenericRepo<T extends Inventory> implements IGenericRepo<T
 	}
 
 	@Override
-	public T findOne(long id) throws Exception{
+	public T findOne(long id){
+//		log.debug("*******trying to fetch enitity ***** "+ clazz.getSimpleName() );
 		T t;
-		try {
-		 t=entityManager.find(clazz, id);
-		}
-		catch(Exception e) {
-			
-			throw new Exception("database  down");
-			
-		}
+		t=entityManager.find(clazz, id);
+//		log.debug("Entity fetched "+ t);
 	 return t; 
 	}
-
 
 	public List<T> findAll() {
 		return entityManager.createQuery("from " + clazz.getName()).getResultList();
@@ -59,8 +52,9 @@ public abstract class GenericRepo<T extends Inventory> implements IGenericRepo<T
 		entityManager.remove(entity);
 	}
 
-	public void deleteById(long entityId) throws Exception{
+	public void deleteById(long entityId){
 		T entity = findOne(entityId);
+
 		delete(entity);
 	}
 }
