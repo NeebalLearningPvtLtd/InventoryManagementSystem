@@ -5,23 +5,17 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
-@NamedQueries({ @NamedQuery(query = "Select e from Adapter e where e.adapterTag= :adapterTag", name = "getByAdapterTag"),
+@NamedQueries({
+		@NamedQuery(query = "Select e from Adapter e where e.adapterTag= :adapterTag", name = "getByAdapterTag"),
 
 })
 @Entity
 public class Adapter extends Inventory {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable = false, nullable = false)
-	private long id;
 	@Column(name = "adapter_tag", unique = true, nullable = false)
 	private String adapterTag;
 	private String brand;
@@ -49,14 +43,6 @@ public class Adapter extends Inventory {
 		serialNum = modelNum = "";
 		warranty = false;
 
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public String getAdapterTag() {

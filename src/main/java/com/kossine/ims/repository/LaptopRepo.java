@@ -1,5 +1,6 @@
 package com.kossine.ims.repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -14,12 +15,18 @@ public class LaptopRepo extends GenericRepo<Laptop> implements ILaptopRepo {
 	public LaptopRepo() {
 		setClazz(Laptop.class);
 	}
-	
-	
+
 	public Laptop findByTag(String laptopTag) {
 
 		Query query = entityManager.createNamedQuery("getByLaptopTag");
 		query.setParameter("laptopTag", laptopTag);
-		return (Laptop) query.getSingleResult();
+
+		Laptop result = null;
+		try {
+			result = (Laptop) query.getSingleResult();
+		} catch (NoResultException e) {
+
+		}
+		return result;
 	}
 }

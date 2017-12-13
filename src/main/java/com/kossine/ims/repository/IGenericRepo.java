@@ -1,5 +1,6 @@
 package com.kossine.ims.repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.kossine.ims.models.Inventory;
@@ -13,6 +14,8 @@ public interface IGenericRepo<T extends Inventory> {
 	 List<T> findAll();
 
 	 void save( T entity);
+	 
+	 void bulkSave(Collection<T> entities);
 
 	 void update( T entity);
 

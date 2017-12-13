@@ -5,9 +5,6 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
@@ -18,10 +15,6 @@ import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 })
 @Entity
 public class Laptop extends Inventory {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(updatable = false, nullable = false)
-	private long id;
 	@Column(name = "laptop_tag", unique = true, nullable = false)
 	private String laptopTag;
 
@@ -58,14 +51,6 @@ public class Laptop extends Inventory {
 		modelNum = brand = batterySerialNum = processor = hdd = ram = "";
 		vt = wifi = warranty = false;
 
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public String getLaptopTag() {

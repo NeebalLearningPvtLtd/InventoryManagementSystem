@@ -18,7 +18,7 @@ public class LaptopRepoTest {
 	@Test
 	public void test() {
 
-		assertThat(repo.findByTag("LAP/ADH/BST/0001").getId()).isEqualTo(1);
+		assertThat(repo.findByTag("LAP/ADH/BST/0001")).isNotNull();
 		
 	}
 
