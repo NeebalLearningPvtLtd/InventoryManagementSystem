@@ -48,24 +48,24 @@ public class ExcelToDB {
 
 		try {
 			FileParser fp = new FileParser(excelFile, formatFile);
-				Map<Class<? extends Inventory>, List<Inventory>> map = null;
-				try {
-					map = fp.parseFile();
-				} catch (Exception e) {
-					
-					System.err.println("excel sheets were not parsed , "+e);
-				}
+			Map<Class<? extends Inventory>, List<Inventory>> map = null;
+			try {
+				map = fp.parseFile();
 				for (Entry<Class<? extends Inventory>, List<Inventory>> pair : map.entrySet()) {
 					Class<? extends Inventory> clazz = pair.getKey();
 					if (clazz.equals(Laptop.class))
-						laptopRepo.bulkSave((List<Laptop>)(List<?>)pair.getValue());
+						laptopRepo.bulkSave((List<Laptop>) (List<?>) pair.getValue());
 					else if (clazz.equals(Adapter.class))
-						adapterRepo.bulkSave((List<Adapter>)(List<?>)pair.getValue());
+						adapterRepo.bulkSave((List<Adapter>) (List<?>) pair.getValue());
 				}
-	
+			} catch (Exception e) {
+
+				System.err.println("excel sheets were not parsed , " + e);
+			}
+
 		} catch (FileNotFoundException e) {
 
-			System.err.println(e);
+			System.err.println("excel file / format file were not found  , " + e);
 		}
 
 	}
