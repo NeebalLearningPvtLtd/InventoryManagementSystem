@@ -7,11 +7,14 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
-@NamedQueries({ @NamedQuery(query = "Select e from Laptop e where e.laptopTag= :laptopTag", name = "getByLaptopTag")
-
+@NamedQueries({
+@NamedQuery(query = "Select e from Laptop e where e.laptopTag = :laptopTag", name = "getByLaptopTag"),
+@NamedQuery(query = "Select e from Laptop e where e.laptopTag like :laptopTag", name = "getByLaptopTagLikeQuery")
 })
 @Entity
 public class Laptop extends Inventory {
@@ -26,6 +29,10 @@ public class Laptop extends Inventory {
 	private String batterySerialNum;
 	@Column(name = "model_num")
 	private String modelNum;
+
+	@OneToOne(mappedBy="laptop")
+	@Transient
+	private LaptopUsedBy usedby;
 
 	private String processor;
 	private String ram;

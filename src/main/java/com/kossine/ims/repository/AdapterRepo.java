@@ -1,32 +1,11 @@
 package com.kossine.ims.repository;
 
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
 import com.kossine.ims.models.Adapter;
 
-@Repository
-@Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class AdapterRepo extends GenericRepo<Adapter> implements IAdapterRepo {
-	public AdapterRepo() {
-		this.clazz = Adapter.class;
-	}
+public interface AdapterRepo extends GenericRepo<Adapter> {
 
-	@Override
-	public Adapter findByTag(String adapterTag) {
-		Query query = entityManager.createNamedQuery("getByAdapterTag");
-		query.setParameter("adapterTag", adapterTag);
-		Adapter result = null;
-		try {
-			result = (Adapter) query.getSingleResult();
-		} catch (NoResultException e) {
-
-		}
-		return result;
-	}
+	List<Adapter> findByTagLikeQuery(String adaptertag);
 
 }

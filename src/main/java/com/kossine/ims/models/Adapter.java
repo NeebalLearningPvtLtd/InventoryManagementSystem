@@ -7,12 +7,14 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 @NamedQueries({
-		@NamedQuery(query = "Select e from Adapter e where e.adapterTag= :adapterTag", name = "getByAdapterTag"),
-
+@NamedQuery(query = "Select e from Adapter e where e.adapterTag= :adapterTag", name = "getByAdapterTag"),
+@NamedQuery(query = "Select e from Adapter e where e.adapterTag like :adapterTag", name = "getByAdapterTagLikeQuery")
 })
 @Entity
 public class Adapter extends Inventory {
@@ -23,6 +25,11 @@ public class Adapter extends Inventory {
 	private String serialNum;
 	@Column(name = "model_num")
 	private String modelNum;
+
+	@OneToOne(mappedBy = "adapter")
+	@Transient
+	private AdapterUsedBy usedby;
+
 	private String supplier;
 	private boolean warranty;
 
