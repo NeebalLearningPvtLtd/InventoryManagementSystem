@@ -1,4 +1,4 @@
-package com.kossine.ims.repository.exceptions;
+package com.kossine.ims.exceptions;
 
 @SuppressWarnings("serial")
 public class EntityNotFound extends Exception {
