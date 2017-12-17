@@ -25,7 +25,7 @@ import com.kossine.ims.models.Adapter;
 public class AdapterRepoTest {
 
 	@Autowired
-	private IAdapterRepo repo;
+	private AdapterRepo repo;
 	private Adapter obj;
 	@Autowired
 	private JdbcTemplate jdbc;
