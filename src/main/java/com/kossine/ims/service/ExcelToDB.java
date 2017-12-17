@@ -15,14 +15,14 @@ import org.springframework.stereotype.Service;
 import com.kossine.ims.models.Adapter;
 import com.kossine.ims.models.Inventory;
 import com.kossine.ims.models.Laptop;
-import com.kossine.ims.repository.IAdapterRepo;
-import com.kossine.ims.repository.ILaptopRepo;
+import com.kossine.ims.repository.AdapterRepo;
+import com.kossine.ims.repository.LaptopRepo;
 import com.kossine.ims.utility.excel_to_pojo.FileParser;
 
 @Service
 public class ExcelToDB {
-	private ILaptopRepo laptopRepo;
-	private IAdapterRepo adapterRepo;
+	private LaptopRepo laptopRepo;
+	private AdapterRepo adapterRepo;
 	private File excelFile, formatFile;
 
 	@Value("${excel_file}")
@@ -32,7 +32,7 @@ public class ExcelToDB {
 	private String formatPath;
 
 	@Autowired
-	public ExcelToDB(ILaptopRepo laptopRepo, IAdapterRepo adapterRepo) {
+	public ExcelToDB(LaptopRepo laptopRepo, AdapterRepo adapterRepo) {
 		this.laptopRepo = laptopRepo;
 		this.adapterRepo = adapterRepo;
 	}

@@ -30,8 +30,8 @@ CREATE TABLE `laptop` (
 
 CREATE TABLE `laptopusedby` (
   `id` int(20) primary key NOT NULL AUTO_INCREMENT,
-  `laptop_id` int(20)  UNIQUE,
-  `usedby` varchar(50) NOT NULL,
+  `laptop_id` int(20) ,
+  `location` varchar(255) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   constraint `laptop_fk` FOREIGN key(`laptop_id`) REFERENCES `laptop`(`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -61,7 +61,7 @@ CREATE TABLE `adapter` (
 CREATE TABLE `adapterusedby` (
   `id` int(20) primary key  NOT NULL AUTO_INCREMENT,
   `adapter_id` int(20) ,
-  `usedby` varchar(50) NOT NULL,
+  `location` varchar(255) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   constraint `adapter_fk` FOREIGN key(`adapter_id`) REFERENCES `adapter`(`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
