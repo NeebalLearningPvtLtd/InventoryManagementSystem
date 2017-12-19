@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.kossine.ims.exceptions.ModelNotFoundException;
 import com.kossine.ims.repository.LaptopUsedByRepo;
 
 @RunWith(SpringRunner.class)
@@ -15,17 +16,15 @@ public class LaptopUsedByServiceTest {
 
 	@Autowired
 	LaptopUsedByService service;
-	
+
 	@Autowired
 	LaptopUsedByRepo usedbyrepo;
-	
+
 	@Test
 	@Rollback(false)
-	public void test() {
+	public void test() throws ModelNotFoundException {
 
-		service.getAllLaptopsUsed();
-//		service.saveLaptopByLaptopTag("LAP/ADH/BST/0003", "kossine jupiter");
-//		assertThat(usedbyrepo.findOne(id))
+		service.saveLaptopByLaptopTag("LAP/ADH/BST/0003", "kossine jupiter");
 	}
 
 }

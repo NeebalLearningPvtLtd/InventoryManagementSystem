@@ -34,9 +34,4 @@ public class LaptopUsedByTest {
 		assertThat(usedbyrepo.findOne(2L).getLaptop()).isNull();
 	}
 
-	@Test
-	public void findTest() {
-		// I am looking at console for desired o/p 
-		usedbyrepo.findAllByLocationQuery("lmno");	
-	}
 }

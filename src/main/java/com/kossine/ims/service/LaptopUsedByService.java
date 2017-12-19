@@ -2,10 +2,10 @@ package com.kossine.ims.service;
 
 import java.util.List;
 
-import javax.persistence.EntityNotFoundException;
-
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.kossine.ims.exceptions.ModelNotFoundException;
 import com.kossine.ims.models.Laptop;
 import com.kossine.ims.models.LaptopUsedBy;
 import com.kossine.ims.repository.LaptopRepo;
@@ -16,25 +16,44 @@ public class LaptopUsedByService {
 	private LaptopRepo laptopRepo;
 	private LaptopUsedByRepo usedbyRepo;
 
-
 	public LaptopUsedByService(LaptopRepo laptopRepo, LaptopUsedByRepo usedbyRepo) {
 		this.laptopRepo = laptopRepo;
 		this.usedbyRepo = usedbyRepo;
 	}
-	public LaptopUsedBy saveLaptopByLaptopTag(String laptoptag,String location) throws EntityNotFoundException{
-		
-		Laptop l=laptopRepo.findByTag(laptoptag);
-		if(l==null) 
-			throw new EntityNotFoundException("Laptop was not found with tag "+ laptoptag);
-		LaptopUsedBy entry=new LaptopUsedBy();
+
+	public Long saveLaptopByLaptopTag(String laptoptag, String location) throws ModelNotFoundException {
+
+		Laptop l = laptopRepo.findByTag(laptoptag);
+		if (l == null)
+			throw new ModelNotFoundException("provide valid laptoptag",
+					"Laptop was not found with laptoptag " + laptoptag);
+		LaptopUsedBy entry = new LaptopUsedBy();
 		entry.setLaptop(l);
 		entry.setLocation(location);
-		return usedbyRepo.save(entry);
+		return usedbyRepo.save(entry).getId();
 	}
-	public List<LaptopUsedBy> getAllLaptopsUsed(){
-		return usedbyRepo.findAllWithJoin();
-	}
-	/*public void deleteLaptopUsedByEntry(String laptoptag){
+
+
+	public List<LaptopUsedBy> getAllLaptopsUsedPaged(Pageable pageable) {
 		
-	}*/
+		return usedbyRepo.findAllWithJoin(pageable);
+	}
+	
+	public List<LaptopUsedBy> getAllLaptopsUsedWithLocationQueryPaged(String locationQuery,Pageable pageable) {
+
+		return usedbyRepo.findAllByLocationQuery(locationQuery , pageable);
+	}
+	
+	public void updateLaptopUsedByLocation(Long id, String location) throws ModelNotFoundException{
+		LaptopUsedBy entity=usedbyRepo.findOne(id);
+		if(entity==null)
+			throw new ModelNotFoundException("provide a valid laptopusage id" , " Entity not found with id " + id);
+		entity.setLocation(location);
+		usedbyRepo.save(entity);
+	}
+	public void deleteLaptopUsedByEntry(Long id) throws ModelNotFoundException {
+		if (usedbyRepo.findOne(id) == null)
+			throw new ModelNotFoundException("provide a valid laptopusage id ", " Entity not found with id " + id);
+		usedbyRepo.delete(id);
+	}
 }

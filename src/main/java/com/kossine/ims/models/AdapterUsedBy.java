@@ -4,6 +4,7 @@ import java.time.LocalTime;
 
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -21,7 +22,7 @@ public class AdapterUsedBy {
 	private long id;
 
 	// default column name is laptop_id , so no need of @JoinColumn
-	@OneToOne
+	@OneToOne(fetch=FetchType.LAZY)
 	private Adapter adapter;
 
 	@Convert(converter = Jsr310JpaConverters.LocalTimeConverter.class)

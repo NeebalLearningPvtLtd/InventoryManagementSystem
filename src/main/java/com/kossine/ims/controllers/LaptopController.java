@@ -39,7 +39,7 @@ public class LaptopController {
 	}
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Laptop> deleteLaptopById(@PathVariable Long id){
-	
+		repo.findOne(id);
 		return null;
 	}
 }

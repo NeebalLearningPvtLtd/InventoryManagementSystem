@@ -22,7 +22,7 @@ public class LaptopUsedBy {
 	private long id;
 	
 	// default column name is laptop_id , so no need of @JoinColumn
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.LAZY)
 	private Laptop laptop;
 	
 	@Convert(converter = Jsr310JpaConverters.LocalTimeConverter.class)

@@ -18,43 +18,43 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kossine.ims.exceptions.ModelNotFoundException;
-import com.kossine.ims.service.LaptopUsedByService;
+import com.kossine.ims.service.AdapterUsedByService;
 
 @RestController
-@RequestMapping("/laptopusage")
-public class LaptopUsedByController {
+@RequestMapping("/adapterusage")
+public class AdapterUsedByController {
 
 	@Autowired
-	private LaptopUsedByService service;
+	private AdapterUsedByService service;
 
 	@GetMapping("/get/all")
-	public ResponseEntity<?> getAllLaptopUsedByWithOptionalQuery(
+	public ResponseEntity<?> getAllAdapterUsedByWithOptionalQuery(
 			@RequestParam(name = "location", required = false) String locationQuery,
 			@PageableDefault(page = 0, value = 10) Pageable pageable) {
 
 		if (locationQuery == null || locationQuery.trim() == "")
-			return ResponseEntity.ok(service.getAllLaptopsUsedPaged(pageable));
+			return ResponseEntity.ok(service.getAllAdaptersUsedPaged(pageable));
 
-		return ResponseEntity.ok(service.getAllLaptopsUsedWithLocationQueryPaged(locationQuery, pageable));
+		return ResponseEntity.ok(service.getAllAdaptersUsedWithLocationQueryPaged(locationQuery, pageable));
 
 	}
 
-	@PostMapping(path="/add", produces = "application/json")
-	public ResponseEntity<?> addLaptopByLaptopTagAndLocation(@RequestBody Map<String, Object> payload)
+	@PostMapping(path = "/add", produces = "application/json")
+	public ResponseEntity<?> addAdapterByAdapterTagAndLocation(@RequestBody Map<String, Object> payload)
 			throws ModelNotFoundException {
 
-		String laptoptag = (String) payload.get("laptoptag");
+		String adaptertag = (String) payload.get("adaptertag");
 		String location = (String) payload.get("location");
-		if (laptoptag == null || location == null)
+		if (adaptertag == null || location == null)
 			return ResponseEntity.badRequest().body(new ApiError(HttpStatus.BAD_REQUEST,
-					"required json body parameters is not valid", "laptoptag and location required"));
+					"required json body parameters is not valid", "adaptertag and location required"));
 
-		return ResponseEntity.ok().body("{ \"id\":" + service.saveLaptopByLaptopTag(laptoptag, location) + "}");
+		return ResponseEntity.ok().body("{ \"id\":" + service.saveAdapterByAdapterTag(adaptertag, location) + "}");
 
 	}
 
 	@PutMapping("/{id:\\d+}")
-	public ResponseEntity<?> updateLaptopUsedBy(@PathVariable("id") Long id, @RequestBody Map<String, Object> payload)
+	public ResponseEntity<?> updateAdapterUsedBy(@PathVariable("id") Long id, @RequestBody Map<String, Object> payload)
 			throws ModelNotFoundException {
 
 		String location = (String) payload.get("location");
@@ -62,15 +62,15 @@ public class LaptopUsedByController {
 			return ResponseEntity.badRequest().body(new ApiError(HttpStatus.BAD_REQUEST,
 					"only location update is available", "location key was not found"));
 
-		service.updateLaptopUsedByLocation(id, location);
+		service.updateAdapterUsedByLocation(id, location);
 		return ResponseEntity.ok().build();
 
 	}
 
 	@DeleteMapping("/{id:\\d+}")
-	public ResponseEntity<?> deleteLaptopUsedBybasedOnId(@PathVariable("id") Long id) throws ModelNotFoundException {
+	public ResponseEntity<?> deleteAdapterUsedBybasedOnId(@PathVariable("id") Long id) throws ModelNotFoundException {
 
-		service.deleteLaptopUsedByEntry(id);
+		service.deleteAdapterUsedByEntry(id);
 		return ResponseEntity.ok().build();
 
 	}
