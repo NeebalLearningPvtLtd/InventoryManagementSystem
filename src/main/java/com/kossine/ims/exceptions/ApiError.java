@@ -1,4 +1,4 @@
-package com.kossine.ims.controllers;
+package com.kossine.ims.exceptions;
 
 import java.util.Arrays;
 import java.util.List;

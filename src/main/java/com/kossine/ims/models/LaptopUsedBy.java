@@ -1,6 +1,6 @@
 package com.kossine.ims.models;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -25,8 +25,8 @@ public class LaptopUsedBy {
 	@OneToOne(fetch=FetchType.LAZY)
 	private Laptop laptop;
 	
-	@Convert(converter = Jsr310JpaConverters.LocalTimeConverter.class)
-	private LocalTime time;
+	@Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
+	private LocalDateTime time;
 	
 	@Size(max = 255)
 	@NotNull
@@ -48,11 +48,11 @@ public class LaptopUsedBy {
 		this.laptop = laptop;
 	}
 
-	public LocalTime getTime() {
+	public LocalDateTime getTime() {
 		return time;
 	}
 
-	public void setTime(LocalTime time) {
+	public void setTime(LocalDateTime time) {
 		this.time = time;
 	}
 

@@ -1,4 +1,4 @@
-package com.kossine.ims.controllers;
+package com.kossine.ims.exceptions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,31 +23,39 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.kossine.ims.exceptions.ModelNotFoundException;
-
 @RestControllerAdvice
 public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
+	/*
+	@ExceptionHandler(NoHandlerFoundException.class)
+	public ResponseEntity<Object> handle(HttpServletRequest request, Exception ex) {
 
-	@ExceptionHandler(ModelNotFoundException.class)
-	public ResponseEntity<Object> handleEntityNotFound(ModelNotFoundException ex){
-		
-		ApiError apiError=new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(),ex.getErrors());
-		
+		ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getLocalizedMessage(), new StringBuilder()
+				.append(((NoHandlerFoundException) ex).getRequestURL()).append(" not found ").toString());
 		return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
 	}
+*/
+	@ExceptionHandler(ModelNotFoundException.class)
+	public ResponseEntity<Object> handleEntityNotFound(ModelNotFoundException ex) {
+
+		ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), ex.getErrors());
+
+		return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
+	}
+
 	// json provided is not readable for required purpose
 	@Override
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		List<String> errors = new ArrayList<String>();
-		/************change later********/
-		Arrays.stream(ex.getStackTrace()).forEach(e->errors.add(e.toString()));
-		
-		ApiError apiError=new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors+" lol");
+		/************ change later ********/
+		Arrays.stream(ex.getStackTrace()).forEach(e -> errors.add(e.toString()));
 
-		return handleExceptionInternal(ex, apiError, headers , apiError.getStatus() , request);
+		ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors + " lol");
+
+		return handleExceptionInternal(ex, apiError, headers, apiError.getStatus(), request);
 	}
-	//thrown when @valid fails
+
+	// thrown when @valid fails
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -63,6 +71,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 		return handleExceptionInternal(ex, apiError, headers, apiError.getStatus(), request);
 
 	}
+
 	// thorws when @requestparam is not able to find the param
 	@Override
 	protected ResponseEntity<Object> handleMissingServletRequestParameter(MissingServletRequestParameterException ex,

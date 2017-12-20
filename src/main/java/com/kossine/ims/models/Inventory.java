@@ -6,7 +6,10 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @MappedSuperclass
+@JsonIgnoreProperties({"clazz","name"})
 public abstract class Inventory {
 	@Transient
 	private String name;

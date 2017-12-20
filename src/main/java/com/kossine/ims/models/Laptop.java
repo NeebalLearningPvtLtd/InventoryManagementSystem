@@ -9,16 +9,21 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
+import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
-@NamedQueries({
-@NamedQuery(query = "Select e from Laptop e where e.laptopTag = :laptopTag", name = "getByLaptopTag"),
-@NamedQuery(query = "Select e from Laptop e where e.laptopTag like :laptopTag", name = "getByLaptopTagLikeQuery")
-})
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+
+@NamedQueries({ @NamedQuery(query = "Select e from Laptop e where e.laptopTag = :laptopTag", name = "getByLaptopTag"),
+		@NamedQuery(query = "Select e from Laptop e where e.laptopTag like :laptopTag", name = "getByLaptopTagLikeQuery") })
 @Entity
 public class Laptop extends Inventory {
 	@Column(name = "laptop_tag", unique = true, nullable = false)
+	@NotEmpty
+	@Pattern(regexp="^LAP/\\w+/\\w+/\\d+$")
 	private String laptopTag;
 
 	@Column(name = "serial_num")
@@ -30,7 +35,7 @@ public class Laptop extends Inventory {
 	@Column(name = "model_num")
 	private String modelNum;
 
-	@OneToOne(mappedBy="laptop")
+	@OneToOne(mappedBy = "laptop")
 	@Transient
 	private LaptopUsedBy usedby;
 
@@ -38,12 +43,13 @@ public class Laptop extends Inventory {
 	private String ram;
 	private String hdd;
 	private String supplier;
-	private boolean vt;
-	private boolean wifi;
+	private Boolean vt;
+	private Boolean wifi;
 	@Convert(converter = Jsr310JpaConverters.LocalDateConverter.class)
+	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate dop;
 
-	private boolean warranty;
+	private Boolean warranty;
 
 	public Laptop() {
 		super("Laptop", Laptop.class);
@@ -132,19 +138,19 @@ public class Laptop extends Inventory {
 		this.hdd = hdd;
 	}
 
-	public boolean getVt() {
+	public Boolean getVt() {
 		return vt;
 	}
 
-	public void setVt(boolean vt) {
+	public void setVt(Boolean vt) {
 		this.vt = vt;
 	}
 
-	public boolean isWifi() {
+	public Boolean isWifi() {
 		return wifi;
 	}
 
-	public void setWifi(boolean wifi) {
+	public void setWifi(Boolean wifi) {
 		this.wifi = wifi;
 	}
 
@@ -156,12 +162,42 @@ public class Laptop extends Inventory {
 		this.dop = dop;
 	}
 
-	public boolean isWarranty() {
+	public Boolean isWarranty() {
 		return warranty;
 	}
 
-	public void setWarranty(boolean warranty) {
+	public void setWarranty(Boolean warranty) {
 		this.warranty = warranty;
+	}
+
+	public void copy(Laptop updated) {
+		if (updated.getLaptopTag() != null)
+			setLaptopTag(updated.getLaptopTag());
+		if (updated.getSerialNum() != null)
+			setSerialNum(updated.getSerialNum());
+		if (updated.getModelNum() != null)
+			setModelNum(updated.getModelNum());
+		if (updated.getBatterySerialNum() != null)
+			setBatterySerialNum(updated.getBatterySerialNum());
+		if (updated.getBrand() != null)
+			setBrand(updated.getBrand());
+		if (updated.getProcessor() != null)
+			setProcessor(updated.getProcessor());
+		if (updated.getRam() != null)
+			setRam(updated.getRam());
+		if (updated.getHdd() != null)
+			setHdd(updated.getHdd());
+		if (updated.getSupplier() != null)
+			setSupplier(updated.getSupplier());
+		if (updated.getVt() != null)
+			setVt(updated.getVt());
+		if (updated.isWifi() != null)
+			setWifi(updated.isWifi());
+		if (updated.getDop() != null)
+			setDop(updated.getDop());
+		if (updated.isWarranty() != null)
+			setWarranty(updated.isWarranty());
+
 	}
 
 	@Override

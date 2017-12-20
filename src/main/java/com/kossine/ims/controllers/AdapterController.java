@@ -18,44 +18,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kossine.ims.exceptions.ModelNotFoundException;
-import com.kossine.ims.models.Laptop;
-import com.kossine.ims.service.LaptopService;
+import com.kossine.ims.models.Adapter;
+import com.kossine.ims.service.AdapterService;
 
 @RestController
-@RequestMapping("/laptop")
-public class LaptopController {
+@RequestMapping("/adapter")
+public class AdapterController {
 
 	@Autowired
-	LaptopService service;
+	AdapterService service;
 
 	@GetMapping("/get/all")
-	public List<Laptop> getAll(@PageableDefault(page=0 , size=20) Pageable pageable)  {
+	public List<Adapter> getAll(@PageableDefault(page=0 , size=20) Pageable pageable)  {
 		
-		return service.findAllLaptop(pageable);
+		return service.findAllAdapter(pageable);
 	}
 
 	@GetMapping("/get/{id:\\d+}")
 	public ResponseEntity<?> get(@PathVariable Long id) throws ModelNotFoundException {
 
-		return ResponseEntity.ok(service.findLaptopById(id));
+		return ResponseEntity.ok(service.findAdapterById(id));
 	}
 
 	@PostMapping(path = "/add", produces = "application/json")
-	public ResponseEntity<?> addLaptop(@Valid @RequestBody Laptop laptop) {
+	public ResponseEntity<?> addAdapter(@Valid @RequestBody Adapter adapter) {
 
-		return ResponseEntity.ok("{ \"id\" : " + service.saveLaptopToDB(laptop) + "}");
+		return ResponseEntity.ok("{ \"id\" : " + service.saveAdapterToDB(adapter) + "}");
 	}
 
 	@PutMapping("/{id:\\d+}")
-	public ResponseEntity<?> updateLaptop(@PathVariable Long id, @RequestBody Laptop laptop)
+	public ResponseEntity<?> updateAdapter(@PathVariable Long id, @RequestBody Adapter adapter)
 			throws ModelNotFoundException {
-		service.updateLaptop(id, laptop);
+		service.updateAdapter(id, adapter);
 		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("/{id:\\d+}")
-	public ResponseEntity<?> deleteLaptopById(@PathVariable Long id) throws ModelNotFoundException {
-		service.deleteLaptopById(id);
+	public ResponseEntity<?> deleteAdapterById(@PathVariable Long id) throws ModelNotFoundException {
+		service.deleteAdapterById(id);
 		return ResponseEntity.ok().build();
 	}
 }

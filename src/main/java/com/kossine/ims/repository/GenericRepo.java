@@ -3,6 +3,8 @@ package com.kossine.ims.repository;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import com.kossine.ims.models.Inventory;
 
 public interface GenericRepo<T extends Inventory> {
@@ -11,7 +13,7 @@ public interface GenericRepo<T extends Inventory> {
 
 	T findByTag(String tag);
 
-	List<T> findAll();
+	List<T> findAll(Pageable pageable);
 
 	void save(T entity);
 

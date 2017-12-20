@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kossine.ims.exceptions.ApiError;
 import com.kossine.ims.exceptions.ModelNotFoundException;
 import com.kossine.ims.service.LaptopUsedByService;
 
@@ -43,11 +44,11 @@ public class LaptopUsedByController {
 	public ResponseEntity<?> addLaptopByLaptopTagAndLocation(@RequestBody Map<String, Object> payload)
 			throws ModelNotFoundException {
 
-		String laptoptag = (String) payload.get("laptoptag");
+		String laptoptag = (String) payload.get("laptopTag");
 		String location = (String) payload.get("location");
 		if (laptoptag == null || location == null)
 			return ResponseEntity.badRequest().body(new ApiError(HttpStatus.BAD_REQUEST,
-					"required json body parameters is not valid", "laptoptag and location required"));
+					"required json body parameters is not valid", "laptopTag and location required"));
 
 		return ResponseEntity.ok().body("{ \"id\":" + service.saveLaptopByLaptopTag(laptoptag, location) + "}");
 

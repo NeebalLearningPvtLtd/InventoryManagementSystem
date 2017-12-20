@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Pageable;
 
 import com.kossine.ims.models.Inventory;
 import com.kossine.ims.repository.GenericRepo;
@@ -37,8 +38,10 @@ public abstract class GenericRepoImpl<T extends Inventory> implements GenericRep
 		return t;
 	}
 
-	public List<T> findAll() {
-		return em.createQuery("from " + clazz.getName()).getResultList();
+	public List<T> findAll(Pageable pageable) {
+
+		return em.createQuery("from " + clazz.getName()).setFirstResult(pageable.getOffset())
+				.setMaxResults(pageable.getPageSize()).getResultList();
 	}
 
 	public void save(T entity) {

@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.init.ScriptException;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
@@ -51,7 +52,7 @@ public class AdapterRepoTest {
 	@Test
 	public void testFindAll() {
 
-		assertThat(repo.findAll().size()).isEqualTo(10);
+		assertThat(repo.findAll(new PageRequest(0,50)).size()).isEqualTo(10);
 	}
 
 	@Test

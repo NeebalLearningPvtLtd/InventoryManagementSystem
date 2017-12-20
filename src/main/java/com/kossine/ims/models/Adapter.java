@@ -9,8 +9,13 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
+import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
 @NamedQueries({
 @NamedQuery(query = "Select e from Adapter e where e.adapterTag= :adapterTag", name = "getByAdapterTag"),
@@ -19,6 +24,8 @@ import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 @Entity
 public class Adapter extends Inventory {
 	@Column(name = "adapter_tag", unique = true, nullable = false)
+	@NotEmpty
+	@Pattern(regexp="^ADP/\\w+/\\w+/\\d+$")
 	private String adapterTag;
 	private String brand;
 	@Column(name = "serial_num")
@@ -31,10 +38,10 @@ public class Adapter extends Inventory {
 	private AdapterUsedBy usedby;
 
 	private String supplier;
-	private boolean warranty;
+	private Boolean warranty;
 
 	@Convert(converter = Jsr310JpaConverters.LocalDateConverter.class)
-	@Column(nullable = true)
+	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate dop;
 
 	public Adapter() {
@@ -100,14 +107,30 @@ public class Adapter extends Inventory {
 		this.supplier = supplier;
 	}
 
-	public boolean isWarranty() {
+	public Boolean isWarranty() {
 		return warranty;
 	}
 
-	public void setWarranty(boolean warranty) {
+	public void setWarranty(Boolean warranty) {
 		this.warranty = warranty;
 	}
-
+	public void copy(Adapter updated) {
+		if (updated.getAdapterTag() != null)
+			setAdapterTag(updated.getAdapterTag());
+		if (updated.getSerialNum() != null)
+			setSerialNum(updated.getSerialNum());
+		if (updated.getModelNum() != null)
+			setModelNum(updated.getModelNum());
+		if (updated.getBrand() != null)
+			setBrand(updated.getBrand());
+		if (updated.getSupplier() != null)
+			setSupplier(updated.getSupplier());
+		if (updated.getDop() != null)
+			setDop(updated.getDop());
+		if (updated.isWarranty() != null)
+			setWarranty(updated.isWarranty());
+		
+	}
 	@Override
 	public String toString() {
 		return "Adapter [id=" + id + ", adapterTag=" + adapterTag + "]";
