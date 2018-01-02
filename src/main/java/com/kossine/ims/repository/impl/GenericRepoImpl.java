@@ -55,6 +55,7 @@ public abstract class GenericRepoImpl<T extends Inventory> implements GenericRep
 		}catch(NoResultException e) {
 			log.debug("No entity was found for  "+clazz.getSimpleName()+" with tag : "+tag);
 		}
+		if(result!=null)
 		log.debug("Entity fetched "+ result);
 		return result;
 
