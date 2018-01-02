@@ -17,13 +17,14 @@ import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
-@NamedQueries({ @NamedQuery(query = "Select e from Laptop e where e.laptopTag = :laptopTag", name = "getByLaptopTag"),
+@NamedQueries({ @NamedQuery(query = "select e from Laptop e where e.laptopTag = :tag", name = "Laptop.getByTag"),
 		@NamedQuery(query = "Select e from Laptop e where e.laptopTag like :laptopTag", name = "getByLaptopTagLikeQuery") })
+
 @Entity
 public class Laptop extends Inventory {
 	@Column(name = "laptop_tag", unique = true, nullable = false)
 	@NotEmpty
-	@Pattern(regexp="^LAP/\\w+/\\w+/\\d+$")
+	@Pattern(regexp = "^LAP/\\w+/\\w+/\\d+$")
 	private String laptopTag;
 
 	@Column(name = "serial_num")

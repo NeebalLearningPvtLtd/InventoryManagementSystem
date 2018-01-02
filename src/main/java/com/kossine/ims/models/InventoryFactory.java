@@ -1,12 +1,15 @@
 package com.kossine.ims.models;
 
 public class InventoryFactory {
+	@SuppressWarnings("unchecked")
 	public static Class<? extends Inventory> getClazz(String name) {
-		if (name.equals("Laptop"))
-			return Laptop.class;
-		if (name.equals("Adapter"))
-			return Adapter.class;
-		// add more
-		return null;
+		
+		try {
+			return (Class<? extends Inventory>) Class.forName("com.kossine.ims.models."+name);
+		
+		} catch (ClassNotFoundException e ) {
+			return null;
+		}
+		
 	}
 }

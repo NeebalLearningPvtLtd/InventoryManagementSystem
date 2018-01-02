@@ -17,15 +17,13 @@ import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
-@NamedQueries({
-@NamedQuery(query = "Select e from Adapter e where e.adapterTag= :adapterTag", name = "getByAdapterTag"),
-@NamedQuery(query = "Select e from Adapter e where e.adapterTag like :adapterTag", name = "getByAdapterTagLikeQuery")
-})
+@NamedQueries({ @NamedQuery(query = "select e from Adapter e where e.adapterTag = :tag", name = "Adapter.getByTag"),
+		@NamedQuery(query = "Select e from Adapter e where e.adapterTag like :adapterTag", name = "getByAdapterTagLikeQuery"), })
 @Entity
 public class Adapter extends Inventory {
 	@Column(name = "adapter_tag", unique = true, nullable = false)
 	@NotEmpty
-	@Pattern(regexp="^ADP/\\w+/\\w+/\\d+$")
+	@Pattern(regexp = "^ADP/\\w+/\\w+/\\d+$")
 	private String adapterTag;
 	private String brand;
 	@Column(name = "serial_num")
@@ -114,6 +112,7 @@ public class Adapter extends Inventory {
 	public void setWarranty(Boolean warranty) {
 		this.warranty = warranty;
 	}
+
 	public void copy(Adapter updated) {
 		if (updated.getAdapterTag() != null)
 			setAdapterTag(updated.getAdapterTag());
@@ -129,8 +128,9 @@ public class Adapter extends Inventory {
 			setDop(updated.getDop());
 		if (updated.isWarranty() != null)
 			setWarranty(updated.isWarranty());
-		
+
 	}
+
 	@Override
 	public String toString() {
 		return "Adapter [id=" + id + ", adapterTag=" + adapterTag + "]";
