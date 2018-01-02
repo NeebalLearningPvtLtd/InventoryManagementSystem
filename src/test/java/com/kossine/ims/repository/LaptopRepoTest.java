@@ -16,7 +16,7 @@ public class LaptopRepoTest {
 	@Test
 	public void test() {
 		
-		repo.findByTagLikeQuery("007");
+		repo.findByTag("LAP/ADH/BST/0001");
 		
 	}
 	

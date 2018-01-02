@@ -13,7 +13,7 @@ public class ExcelToDBTest {
 	ExcelToDB exceltodb;
 	
 	@Test
-	public void excelToDBTest() {
+	public void excelToDBTest() throws Exception {
 		exceltodb.perform();
 	}
 
