@@ -3,7 +3,6 @@ package com.kossine.ims.repository.impl;
 import java.util.List;
 
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
 
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -16,20 +15,7 @@ import com.kossine.ims.repository.AdapterRepo;
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class AdapterRepoImpl extends GenericRepoImpl<Adapter> implements AdapterRepo {
 	public AdapterRepoImpl() {
-		this.clazz = Adapter.class;
-	}
-
-	@Override
-	public Adapter findByTag(String adapterTag) {
-		Query query = em.createNamedQuery("getByAdapterTag");
-		query.setParameter("adapterTag", adapterTag);
-		Adapter result = null;
-		try {
-			result = (Adapter) query.getSingleResult();
-		} catch (NoResultException e) {
-
-		}
-		return result;
+		setClazz(Adapter.class);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -42,5 +28,5 @@ public class AdapterRepoImpl extends GenericRepoImpl<Adapter> implements Adapter
 			return null;
 		}
 	}
-	
+
 }

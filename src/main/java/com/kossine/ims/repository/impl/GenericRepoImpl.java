@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
@@ -31,11 +32,26 @@ public abstract class GenericRepoImpl<T extends Inventory> implements GenericRep
 
 	@Override
 	public T findOne(long id) {
-		// log.debug("*******trying to fetch enitity ***** "+ clazz.getSimpleName() );
-		T t;
-		t = em.find(clazz, id);
-		// log.debug("Entity fetched "+ t);
-		return t;
+		log.debug("Trying to fetch enitity  "+ clazz.getSimpleName() +" with id : "+id);
+		T result;
+		result = em.find(clazz, id);
+		log.debug("Entity fetched "+ result.getId());
+		return result;
+	}
+
+	public T findByTag(String tag) {
+		
+		T result=null;
+		log.debug("Trying to fetch enitity  "+ clazz.getSimpleName() +" with tag : "+tag);
+
+		try {
+		result= (T)em.createNamedQuery(clazz.getSimpleName()+".getByTag").setParameter("tag", tag).getSingleResult();
+		}catch(NoResultException e) {
+			log.debug("No entity was found for  "+clazz.getSimpleName()+" with tag : "+tag);
+		}
+		log.debug("Entity fetched "+ result);
+		return result;
+
 	}
 
 	public List<T> findAll(Pageable pageable) {
@@ -49,8 +65,12 @@ public abstract class GenericRepoImpl<T extends Inventory> implements GenericRep
 	}
 
 	public void bulkSave(Collection<T> entities) {
+		log.debug("Trying bulk saving for "+clazz.getSimpleName());
+
 		int i = 1;
 		for (T entity : entities) {
+			if(entity==null)
+				continue;
 			// not yet persisted , when mapping from excel
 			if (entity.getId() == 0)
 				save(entity);
@@ -66,7 +86,7 @@ public abstract class GenericRepoImpl<T extends Inventory> implements GenericRep
 		}
 		em.flush();
 		em.clear();
-
+		log.debug("bulk saving finished for  "+clazz.getSimpleName());
 	}
 
 	public void bulkDelete() {
