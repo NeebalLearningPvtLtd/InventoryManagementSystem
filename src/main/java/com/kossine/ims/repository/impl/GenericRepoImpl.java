@@ -33,8 +33,14 @@ public abstract class GenericRepoImpl<T extends Inventory> implements GenericRep
 	@Override
 	public T findOne(long id) {
 		log.debug("Trying to fetch enitity  "+ clazz.getSimpleName() +" with id : "+id);
-		T result;
+		T result=null;
+		try {
 		result = em.find(clazz, id);
+		}catch(IllegalArgumentException e) {
+			log.warn("Illegal argument for findOne "+e);
+			log.debug("Entity was not fetched with id : "+id);
+		}
+		if(result!=null)
 		log.debug("Entity fetched "+ result.getId());
 		return result;
 	}
