@@ -77,8 +77,8 @@ CREATE TABLE `hdd` (
   `hdd_tag` varchar(50) NOT NULL UNIQUE,
   `brand` varchar(50) DEFAULT NULL,
   `serial_num` varchar(50) DEFAULT NULL,
-  `size` varchar(5) DEFAULT NULL,
-  `TYPE` varchar(50) DEFAULT NULL,
+  `size` varchar(20) DEFAULT NULL,
+  `type` varchar(50) DEFAULT NULL,
   `location` varchar(50) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
