@@ -225,3 +225,71 @@ CREATE TABLE `pc` (
    CONSTRAINT `ram_fk` FOREIGN KEY (`ram_id`) REFERENCES `ram` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
    CONSTRAINT `wifi_fk` FOREIGN KEY (`wifi_id`) REFERENCES `wifi` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+DELIMITER $$
+
+CREATE TRIGGER `pc_insert_set_parts_used_to_1` AFTER INSERT ON `pc` 
+ FOR EACH ROW 
+ begin
+update hdd set hdd.used=1 where hdd.id= new.hdd_id;
+update ram set ram.used=1 where ram.id = new.ram_id;
+update keyboard set keyboard.used=1 where keyboard.id = new.keyboard_id;
+update mouse set mouse.used=1 where mouse.id = new.mouse_id;
+update monitor set monitor.used=1 where monitor.id = new.monitor_id;
+update powersupply set powersupply.used=1 where powersupply.id = new.powersupply_id;
+update motherboard set motherboard.used=1 where motherboard.id = new.motherboard_id;
+update wifi set wifi.used=1 where wifi.id = new.wifi_id;
+end$$
+
+CREATE TRIGGER `pc_delete_set_parts_used_to_0` AFTER DELETE ON `pc` 
+ FOR EACH ROW 
+ begin
+update hdd set hdd.used=0 where hdd.id= old.hdd_id;
+update ram set ram.used=0 where ram.id = old.ram_id;
+update keyboard set keyboard.used=0 where keyboard.id = old.keyboard_id;
+update mouse set mouse.used=0 where mouse.id = old.mouse_id;
+update monitor set monitor.used=0 where monitor.id = old.monitor_id;
+update powersupply set powersupply.used=0 where powersupply.id = old.powersupply_id;
+update motherboard set motherboard.used=0 where motherboard.id = old.motherboard_id;
+update wifi set wifi.used=0 where wifi.id = old.wifi_id;
+end$$
+
+CREATE TRIGGER `pc_update_set_respective_parts_used_to_0_or_1` AFTER update ON `pc` 
+ FOR EACH ROW 
+ begin
+ if(new.hdd_id <> old.hdd_id) then
+ update hdd set hdd.used=0 where hdd.id= old.hdd_id;
+ update hdd set hdd.used=1 where hdd.id= new.hdd_id;
+end if;
+if(new.ram_id <> old.ram_id) then
+update ram set ram.used=0 where ram.id = old.ram_id;
+update ram set ram.used=1 where ram.id = new.ram_id;
+end if;
+if(new.ram_id <> old.ram_id) then
+update ram set ram.used=0 where ram.id = old.ram_id;
+update ram set ram.used=1 where ram.id = new.ram_id;
+end if;
+if(new.mouse_id <> old.mouse_id) then
+update mouse set mouse.used=0 where mouse.id = old.mouse_id;
+update mouse set mouse.used=1 where mouse.id = new.mouse_id;
+end if;
+if(new.keyboard_id <> old.keyboard_id) then
+update keyboard set keyboard.used=0 where keyboard.id = old.keyboard_id;
+update keyboard set keyboard.used=1 where keyboard.id = new.keyboard_id;
+end if;
+if(new.powersupply_id <> old.powersupply_id) then
+update powersupply set powersupply.used=0 where powersupply.id = old.powersupply_id;
+update powersupply set powersupply.used=1 where powersupply.id = new.powersupply_id;
+end if;
+if(new.motherboard_id <> old.motherboard_id) then
+update motherboard set motherboard.used=0 where motherboard.id = old.motherboard_id;
+update motherboard set motherboard.used=1 where motherboard.id = new.motherboard_id;
+end if;
+if(new.wifi_id <> old.wifi_id) then
+update wifi set wifi.used=0 where wifi.id = old.wifi_id;
+update wifi set wifi.used=1 where wifi.id = new.wifi_id;
+end if;
+end$$
+
+DELIMITER ;
