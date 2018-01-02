@@ -25,15 +25,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @RestControllerAdvice
 public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
-	/*
-	@ExceptionHandler(NoHandlerFoundException.class)
-	public ResponseEntity<Object> handle(HttpServletRequest request, Exception ex) {
-
-		ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getLocalizedMessage(), new StringBuilder()
-				.append(((NoHandlerFoundException) ex).getRequestURL()).append(" not found ").toString());
-		return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
-	}
-*/
+	
+	/*add 404 exception handler later*/
+	
 	@ExceptionHandler(ModelNotFoundException.class)
 	public ResponseEntity<Object> handleEntityNotFound(ModelNotFoundException ex) {
 
@@ -46,11 +40,8 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 	@Override
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
-		List<String> errors = new ArrayList<String>();
-		/************ change later ********/
-		Arrays.stream(ex.getStackTrace()).forEach(e -> errors.add(e.toString()));
 
-		ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors + " lol");
+		ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), " http message is not readable");
 
 		return handleExceptionInternal(ex, apiError, headers, apiError.getStatus(), request);
 	}
@@ -72,7 +63,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
 	}
 
-	// thorws when @requestparam is not able to find the param
+	// thrown when @requestparam is not able to find the param
 	@Override
 	protected ResponseEntity<Object> handleMissingServletRequestParameter(MissingServletRequestParameterException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -133,7 +124,9 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 	// default Exception handler , should be rarely used
 	@ExceptionHandler({ Exception.class })
 	public ResponseEntity<Object> handleAll(Exception ex, WebRequest request) {
-		ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, ex.getLocalizedMessage(), "error occurred");
+		List<String> errors = new ArrayList<String>();
+		Arrays.stream(ex.getStackTrace()).forEach(e -> errors.add(e.toString()));
+		ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, ex.getLocalizedMessage(), errors);
 		return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
 	}
 }
