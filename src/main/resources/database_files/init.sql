@@ -33,6 +33,7 @@ CREATE TABLE `laptopusedby` (
   `laptop_id` int(20) ,
   `location` varchar(255) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE key `uni_laptop_id`(`laptop_id`) using BTREE,
   constraint `laptop_fk` FOREIGN key(`laptop_id`) REFERENCES `laptop`(`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -63,6 +64,7 @@ CREATE TABLE `adapterusedby` (
   `adapter_id` int(20) ,
   `location` varchar(255) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE key `uni_adapter_id`(`adapter_id`) using BTREE,
   constraint `adapter_fk` FOREIGN key(`adapter_id`) REFERENCES `adapter`(`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -216,6 +218,14 @@ CREATE TABLE `pc` (
   `processor` varchar(50) DEFAULT NULL,
   `vt` tinyint(1) DEFAULT NULL,
   `location` varchar(50) DEFAULT NULL,
+  UNIQUE key `uni_ram_id`(`ram_id`) using BTREE,
+  UNIQUE key `uni_hdd_id`(`hdd_id`) using BTREE,
+  UNIQUE key `uni_mouse_id`(`mouse_id`) using BTREE,
+  UNIQUE key `uni_keyboard_id`(`keyboard_id`) using BTREE,
+  UNIQUE key `uni_powersupply_id`(`powersupply_id`) using BTREE,
+  UNIQUE key `uni_wifi_id`(`wifi_id`) using BTREE,
+  UNIQUE key `uni_motherboard_id`(`motherboard_id`) using BTREE,
+  UNIQUE key `uni_monitor_id`(`monitor_id`) using BTREE,
    CONSTRAINT `hdd_fk` FOREIGN KEY (`hdd_id`) REFERENCES `hdd` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
    CONSTRAINT `keyboard_fk` FOREIGN KEY (`keyboard_id`) REFERENCES `keyboard` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
    CONSTRAINT `monitor_fk` FOREIGN KEY (`monitor_id`) REFERENCES `monitor` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
