@@ -81,7 +81,22 @@ public class Monitor extends Inventory {
 	public void setUsed(Boolean used) {
 		this.used = used;
 	}
-
+	public void copy(Monitor updated) {
+		if (updated.getMonitorTag() != null)
+			setMonitorTag(updated.getMonitorTag());
+		if (updated.getSerialNum() != null)
+			setSerialNum(updated.getSerialNum());
+		if (updated.getModelNum() != null)
+			setModelNum(updated.getModelNum());
+		if (updated.getBrand() != null)
+			setBrand(updated.getBrand());
+		if (updated.getResolution() != null)
+			setResolution(updated.getResolution());
+		if (updated.getLocation() != null)
+			setLocation(updated.getLocation());
+		if (updated.getUsed() != null)
+			setUsed(updated.getUsed());
+	}
 	@Override
 	public String toString() {
 		return "Monitor [monitorTag=" + monitorTag + ", brand=" + brand + ", serialNum=" + serialNum + ", modelNum="

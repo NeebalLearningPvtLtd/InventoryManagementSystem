@@ -63,8 +63,19 @@ public class Wifi extends Inventory {
 	public void setUsed(Boolean used) {
 		this.used = used;
 	}
+	public void copy(Wifi updated) {
+		if (updated.getWifiTag() != null)
+			setWifiTag(updated.getWifiTag());
+		if (updated.getModelNum() != null)
+			setModelNum(updated.getModelNum());
+		if (updated.getBrand() != null)
+			setBrand(updated.getBrand());
+		if (updated.getLocation() != null)
+			setLocation(updated.getLocation());
+		if (updated.getUsed() != null)
+			setUsed(updated.getUsed());
 
-	@Override
+	}	@Override
 	public String toString() {
 		return "Wifi [wifiTag=" + wifiTag + ", brand=" + brand + ", modelNum=" + modelNum + ", location=" + location
 				+ ", used=" + used + "]";

@@ -83,7 +83,22 @@ public class MotherBoard extends Inventory {
 	public void setUsed(Boolean used) {
 		this.used = used;
 	}
-
+	public void copy(MotherBoard updated) {
+		if (updated.getMotherboardTag()!= null)
+			setMotherboardTag(updated.getMotherboardTag());
+		if (updated.getSerialNum() != null)
+			setSerialNum(updated.getSerialNum());
+		if (updated.getModelNum() != null)
+			setModelNum(updated.getModelNum());
+		if (updated.getBrand() != null)
+			setBrand(updated.getBrand());
+		if (updated.getVt() != null)
+			setVt(updated.getVt());
+		if (updated.getLocation() != null)
+			setLocation(updated.getLocation());
+		if (updated.getUsed() != null)
+			setUsed(updated.getUsed());
+	}
 	@Override
 	public String toString() {
 		return "MotherBoard [motherboardTag=" + motherBoardTag + ", brand=" + brand + ", serialNum=" + serialNum

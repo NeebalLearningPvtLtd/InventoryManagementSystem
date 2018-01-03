@@ -81,6 +81,23 @@ public class Ram extends Inventory {
 	public void setUsed(Boolean used) {
 		this.used = used;
 	}
+	public void copy(Ram updated) {
+		if (updated.getRamTag() != null)
+			setRamTag(updated.getRamTag());
+		if (updated.getSerialNum() != null)
+			setSerialNum(updated.getSerialNum());
+		if (updated.getBrand() != null)
+			setBrand(updated.getBrand());
+		if (updated.getSize() != null)
+			setSize(updated.getSize());
+		if (updated.getType() != null)
+			setType(updated.getType());
+		if (updated.getLocation() != null)
+			setLocation(updated.getLocation());
+		if (updated.getUsed() != null)
+			setUsed(updated.getUsed());
+
+	}
 
 	@Override
 	public String toString() {

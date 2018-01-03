@@ -20,7 +20,7 @@ public class Hdd extends Inventory {
 	private String type;
 	private String location;
 	private Boolean used;
-	
+
 	public Hdd() {
 		super("Hdd", Hdd.class);
 	}
@@ -79,6 +79,24 @@ public class Hdd extends Inventory {
 
 	public void setUsed(Boolean used) {
 		this.used = used;
+	}
+
+	public void copy(Hdd updated) {
+		if (updated.getHddTag() != null)
+			setHddTag(updated.getHddTag());
+		if (updated.getSerialNum() != null)
+			setSerialNum(updated.getSerialNum());
+		if (updated.getBrand() != null)
+			setBrand(updated.getBrand());
+		if (updated.getSize() != null)
+			setSize(updated.getSize());
+		if (updated.getType() != null)
+			setType(updated.getType());
+		if (updated.getLocation() != null)
+			setLocation(updated.getLocation());
+		if (updated.getUsed() != null)
+			setUsed(updated.getUsed());
+
 	}
 
 	@Override

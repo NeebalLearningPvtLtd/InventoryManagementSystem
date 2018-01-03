@@ -65,6 +65,19 @@ public class KeyBoard extends Inventory {
 	public void setUsed(Boolean used) {
 		this.used = used;
 	}
+	public void copy(KeyBoard updated) {
+		if (updated.getKeyboardTag() != null)
+			setKeyboardTag(updated.getKeyboardTag());
+		if (updated.getSerialNum() != null)
+			setSerialNum(updated.getSerialNum());
+		if (updated.getBrand() != null)
+			setBrand(updated.getBrand());
+		if (updated.getLocation() != null)
+			setLocation(updated.getLocation());
+		if (updated.getUsed() != null)
+			setUsed(updated.getUsed());
+
+	}
 
 	@Override
 	public String toString() {

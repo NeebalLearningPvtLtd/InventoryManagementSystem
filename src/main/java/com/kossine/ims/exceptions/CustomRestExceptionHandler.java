@@ -23,8 +23,18 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.kossine.ims.repository.exceptions.IntegrityConstraintViolationException;
+
 @RestControllerAdvice
 public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
+	
+	@ExceptionHandler(IntegrityConstraintViolationException.class)
+	public ResponseEntity<Object> handleConstraintViolationWhenSavingOrUpdating(IntegrityConstraintViolationException ex) {
+		
+		ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), ex.getCause().toString());
+
+		return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
+	}
 	
 	/*add 404 exception handler later*/
 	
