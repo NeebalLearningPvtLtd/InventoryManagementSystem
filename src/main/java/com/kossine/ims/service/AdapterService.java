@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kossine.ims.exceptions.ModelNotFoundException;
 import com.kossine.ims.models.Adapter;
 import com.kossine.ims.repository.AdapterRepo;
+import com.kossine.ims.repository.exceptions.IntegrityConstraintViolationException;
 
 @Service
 public class AdapterService {
@@ -29,14 +30,14 @@ public class AdapterService {
 		return e;
 	}
 
-	public Long saveAdapterToDB(Adapter e) {
+	public Long saveAdapterToDB(Adapter e) throws IntegrityConstraintViolationException {
 
 		repo.save(e);
 		return repo.findByTag(e.getAdapterTag()).getId();
 
 	}
 
-	public void updateAdapter(Long id, Adapter e) throws ModelNotFoundException {
+	public void updateAdapter(Long id, Adapter e) throws ModelNotFoundException, IntegrityConstraintViolationException {
 		Adapter entry = repo.findOne(id);
 		if (entry == null)
 			throw new ModelNotFoundException("Adapter was not found ", "Adapter was not found with id " + id);

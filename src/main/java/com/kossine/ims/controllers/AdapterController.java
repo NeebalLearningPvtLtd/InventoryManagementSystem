@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kossine.ims.exceptions.ModelNotFoundException;
 import com.kossine.ims.models.Adapter;
+import com.kossine.ims.repository.exceptions.IntegrityConstraintViolationException;
 import com.kossine.ims.service.AdapterService;
 
 @RestController
@@ -41,14 +42,14 @@ public class AdapterController {
 	}
 
 	@PostMapping(path = "/add", produces = "application/json")
-	public ResponseEntity<?> addAdapter(@Valid @RequestBody Adapter adapter) {
+	public ResponseEntity<?> addAdapter(@Valid @RequestBody Adapter adapter) throws IntegrityConstraintViolationException {
 
 		return ResponseEntity.ok("{ \"id\" : " + service.saveAdapterToDB(adapter) + "}");
 	}
 
 	@PutMapping("/{id:\\d+}")
 	public ResponseEntity<?> updateAdapter(@PathVariable Long id, @RequestBody Adapter adapter)
-			throws ModelNotFoundException {
+			throws ModelNotFoundException, IntegrityConstraintViolationException {
 		service.updateAdapter(id, adapter);
 		return ResponseEntity.ok().build();
 	}
