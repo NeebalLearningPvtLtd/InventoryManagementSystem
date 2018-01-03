@@ -6,9 +6,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Pattern;
+
 @NamedQueries({
-@NamedQuery(query = "Select e from Pc e where e.pcTag= :tag", name = "Pc.getByTag")
-})
+		@NamedQuery(query = "Select e from Pc e left join fetch e.ram left join fetch e.hdd left join fetch e.mouse left join fetch e.keyboard left join fetch e.powersupply left join fetch e.motherboard left join fetch e.monitor left join fetch e.wifi where e.pcTag= :tag", name = "Pc.getByTag"),
+		@NamedQuery(query = "Select e from Pc e left join fetch e.ram left join fetch e.hdd left join fetch e.mouse left join fetch e.keyboard left join fetch e.powersupply left join fetch e.motherboard left join fetch e.monitor left join fetch e.wifi ", name = "Pc.findAllWithJoin") })
 @Entity
 public class Pc extends Inventory {
 

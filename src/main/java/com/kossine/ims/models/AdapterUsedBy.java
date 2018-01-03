@@ -21,7 +21,7 @@ public class AdapterUsedBy {
 	@GeneratedValue
 	private long id;
 
-	// default column name is laptop_id , so no need of @JoinColumn
+	// default column name is adapter_id , so no need of @JoinColumn
 	@OneToOne(fetch=FetchType.LAZY)
 	private Adapter adapter;
 
