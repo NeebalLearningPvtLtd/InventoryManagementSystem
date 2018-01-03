@@ -4,8 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 @NamedQueries({
 @NamedQuery(query = "Select e from Ram e where e.ramTag= :tag", name = "Ram.getByTag")
@@ -22,10 +20,6 @@ public class Ram extends Inventory {
 	private String type;
 	private String location;
 	private Boolean used;
-	
-	@OneToOne(mappedBy="ram")
-	@Transient
-	private Pc pc;
 	
 	public Ram() {
 

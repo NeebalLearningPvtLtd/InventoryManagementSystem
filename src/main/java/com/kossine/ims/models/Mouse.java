@@ -4,8 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 @NamedQueries({
 @NamedQuery(query = "Select e from Mouse e where e.mouseTag= :tag", name = "Mouse.getByTag")
@@ -23,9 +21,7 @@ public class Mouse extends Inventory {
 	private String connType;
 	private String location;
 	private Boolean used;
-	@OneToOne(mappedBy="mouse")
-	@Transient
-	private Pc pc;
+
 	public Mouse() {
 		super("Mouse", Mouse.class);
 	}

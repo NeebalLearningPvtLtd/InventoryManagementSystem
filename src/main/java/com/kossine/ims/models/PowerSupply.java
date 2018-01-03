@@ -4,9 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 @NamedQueries({
 @NamedQuery(query = "Select e from PowerSupply e where e.powerSupplyTag= :tag", name = "PowerSupply.getByTag")
@@ -22,9 +20,7 @@ public class PowerSupply extends Inventory {
 	private String serialNum;
 	private String location;
 	private Boolean used;
-	@OneToOne(mappedBy="powersupply")
-	@Transient
-	private Pc pc;
+
 	public PowerSupply() {
 		super("PowerSupply", PowerSupply.class);
 	}

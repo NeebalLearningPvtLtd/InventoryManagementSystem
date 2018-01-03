@@ -4,9 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 @NamedQueries({
 @NamedQuery(query = "Select e from KeyBoard e where e.keyBoardTag= :tag", name = "KeyBoard.getByTag")
@@ -23,9 +21,7 @@ public class KeyBoard extends Inventory {
 	private String serialNum;
 	private String location;
 	private Boolean used;
-	@OneToOne(mappedBy="keyboard")
-	@Transient
-	private Pc pc;
+	
 	public KeyBoard() {
 		super("KeyBoard", KeyBoard.class);
 	}

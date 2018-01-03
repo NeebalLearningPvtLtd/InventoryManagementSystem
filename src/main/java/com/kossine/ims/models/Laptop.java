@@ -7,8 +7,6 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -35,10 +33,6 @@ public class Laptop extends Inventory {
 	private String batterySerialNum;
 	@Column(name = "model_num")
 	private String modelNum;
-
-	@OneToOne(mappedBy = "laptop")
-	@Transient
-	private LaptopUsedBy usedby;
 
 	private String processor;
 	private String ram;

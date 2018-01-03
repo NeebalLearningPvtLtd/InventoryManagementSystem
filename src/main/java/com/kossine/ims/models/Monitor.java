@@ -4,8 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 @NamedQueries({
 @NamedQuery(query = "Select e from Monitor e where e.monitorTag= :tag", name = "Monitor.getByTag")
@@ -23,9 +21,7 @@ public class Monitor extends Inventory {
 	private String resolution;
 	private String location;
 	private Boolean used;
-	@OneToOne(mappedBy="monitor")
-	@Transient
-	private Pc pc;
+
 	public Monitor() {
 		super("Monitor", Monitor.class);
 	}

@@ -7,8 +7,6 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -30,10 +28,6 @@ public class Adapter extends Inventory {
 	private String serialNum;
 	@Column(name = "model_num")
 	private String modelNum;
-
-	@OneToOne(mappedBy = "adapter")
-	@Transient
-	private AdapterUsedBy usedby;
 
 	private String supplier;
 	private Boolean warranty;

@@ -4,9 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 @NamedQueries({
 @NamedQuery(query = "Select e from MotherBoard e where e.motherBoardTag= :tag", name = "MotherBoard.getByTag")
@@ -25,9 +23,7 @@ public class MotherBoard extends Inventory {
 	private Boolean vt;
 	private String location;
 	private Boolean used;
-	@OneToOne(mappedBy="motherboard")
-	@Transient
-	private Pc pc;
+
 	public MotherBoard() {
 		super("MotherBoard", MotherBoard.class);
 	}

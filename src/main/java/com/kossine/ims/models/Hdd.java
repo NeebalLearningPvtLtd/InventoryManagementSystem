@@ -4,8 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 
 @NamedQueries({ @NamedQuery(query = "Select e from Hdd e where e.hddTag= :tag", name = "Hdd.getByTag") })
@@ -22,10 +20,7 @@ public class Hdd extends Inventory {
 	private String type;
 	private String location;
 	private Boolean used;
-	@OneToOne(mappedBy = "hdd")
-	@Transient
-	private Pc pc;
-
+	
 	public Hdd() {
 		super("Hdd", Hdd.class);
 	}
