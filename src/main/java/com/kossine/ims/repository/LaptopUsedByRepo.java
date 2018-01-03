@@ -16,10 +16,10 @@ import com.kossine.ims.models.LaptopUsedBy;
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public interface LaptopUsedByRepo extends JpaRepository<LaptopUsedBy, Long> {
 
-	@Query("select e from LaptopUsedBy e join fetch e.laptop")
+	@Query("select e from LaptopUsedBy e left join fetch e.laptop")
 	List<LaptopUsedBy> findAllWithJoin(Pageable page);
 
-	@Query("select e from LaptopUsedBy e join fetch e.laptop where e.location like %:locationQuery% ")
+	@Query("select e from LaptopUsedBy e left join fetch e.laptop where e.location like %:locationQuery% ")
 	List<LaptopUsedBy> findAllByLocationQuery(@Param("locationQuery") String locationQuery, Pageable page);
 
 }

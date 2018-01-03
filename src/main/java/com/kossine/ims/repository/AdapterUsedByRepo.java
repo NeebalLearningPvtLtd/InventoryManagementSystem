@@ -15,10 +15,10 @@ import com.kossine.ims.models.AdapterUsedBy;
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public interface AdapterUsedByRepo extends JpaRepository<AdapterUsedBy, Long> {
-	@Query("select e from AdapterUsedBy e join fetch e.adapter")
+	@Query("select e from AdapterUsedBy e left join fetch e.adapter")
 	List<AdapterUsedBy> findAllWithJoin(Pageable page);
 
-	@Query("select e from AdapterUsedBy e join fetch e.adapter where e.location like %:locationQuery% ")
+	@Query("select e from AdapterUsedBy e left join fetch e.adapter where e.location like %:locationQuery% ")
 	List<AdapterUsedBy> findAllByLocationQuery(@Param("locationQuery") String locationQuery, Pageable page);
 
 }
