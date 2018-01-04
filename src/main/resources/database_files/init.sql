@@ -31,7 +31,7 @@ CREATE TABLE `laptop` (
 CREATE TABLE `laptopusedby` (
   `id` int(20) primary key NOT NULL AUTO_INCREMENT,
   `laptop_id` int(20) ,
-  `location` varchar(255) NOT NULL,
+  `location` varchar(2555) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   UNIQUE key `uni_laptop_id`(`laptop_id`) using BTREE,
   constraint `laptop_fk` FOREIGN key(`laptop_id`) REFERENCES `laptop`(`id`) ON DELETE SET NULL ON UPDATE CASCADE
@@ -62,7 +62,7 @@ CREATE TABLE `adapter` (
 CREATE TABLE `adapterusedby` (
   `id` int(20) primary key  NOT NULL AUTO_INCREMENT,
   `adapter_id` int(20) ,
-  `location` varchar(255) NOT NULL,
+  `location` varchar(2555) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   UNIQUE key `uni_adapter_id`(`adapter_id`) using BTREE,
   constraint `adapter_fk` FOREIGN key(`adapter_id`) REFERENCES `adapter`(`id`) ON DELETE SET NULL ON UPDATE CASCADE
@@ -81,7 +81,7 @@ CREATE TABLE `hdd` (
   `serial_num` varchar(50) DEFAULT NULL,
   `size` varchar(20) DEFAULT NULL,
   `type` varchar(50) DEFAULT NULL,
-  `location` varchar(50) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -96,7 +96,7 @@ CREATE TABLE `keyboard` (
   `keyboard_tag` varchar (50) NOT NULL UNIQUE,
   `brand` varchar(50) DEFAULT NULL,
   `serial_num` varchar(50) DEFAULT NULL,
-  `location` varchar(50) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -115,7 +115,7 @@ CREATE TABLE `monitor` (
   `serial_num` varchar(50) DEFAULT NULL,
   `model_num` varchar(50) DEFAULT NULL,
   `resolution` varchar(50) DEFAULT NULL,
-  `location` varchar(50) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -133,7 +133,7 @@ CREATE TABLE `motherboard` (
   `serial_num` varchar(50) DEFAULT NULL,
   `model_num` varchar(50) DEFAULT NULL,
   `vt` tinyint(1) DEFAULT NULL,
-  `location` varchar(50) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -149,7 +149,7 @@ CREATE TABLE `mouse` (
   `brand` varchar(50) DEFAULT NULL,
   `serial_num` varchar(50) DEFAULT NULL,
   `conn_type` varchar(50) DEFAULT NULL,
-  `location` varchar(50) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -162,7 +162,7 @@ CREATE TABLE `powersupply` (
   `powersupply_tag` varchar(50) NOT NULL UNIQUE,
   `brand` varchar(50) DEFAULT NULL,
   `serial_num` varchar(50) DEFAULT NULL,
-  `location` varchar(50) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -177,9 +177,9 @@ CREATE TABLE `ram` (
   `ram_tag` varchar(50) NOT NULL UNIQUE,
   `brand` varchar(50) DEFAULT NULL,
   `serial_num` varchar(50) DEFAULT NULL,
-  `size` varchar(5) DEFAULT NULL,
+  `size` varchar(20) DEFAULT NULL,
   `type` varchar(50) DEFAULT NULL,
-  `location` varchar(50) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -194,7 +194,7 @@ CREATE TABLE `wifi` (
   `wifi_tag` varchar(50) NOT NULL UNIQUE,
   `brand` varchar(50) DEFAULT NULL,
   `model_num` varchar(50) DEFAULT NULL,
-  `location` varchar(50) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -217,7 +217,7 @@ CREATE TABLE `pc` (
   `monitor_id` int(20) DEFAULT NULL,
   `processor` varchar(50) DEFAULT NULL,
   `vt` tinyint(1) DEFAULT NULL,
-  `location` varchar(50) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
   UNIQUE key `uni_ram_id`(`ram_id`) using BTREE,
   UNIQUE key `uni_hdd_id`(`hdd_id`) using BTREE,
   UNIQUE key `uni_mouse_id`(`mouse_id`) using BTREE,
@@ -268,35 +268,35 @@ end$$
 CREATE TRIGGER `pc_update_set_respective_parts_used_to_0_or_1` AFTER update ON `pc` 
  FOR EACH ROW 
  begin
- if(new.hdd_id <> old.hdd_id) then
+ if( (new.hdd_id <> old.hdd_id) or (old.hdd_id is null and new.hdd_id is not null ) or (new.hdd_id is null and old.hdd_id is not null ) ) then
  update hdd set hdd.used=0 where hdd.id= old.hdd_id;
  update hdd set hdd.used=1 where hdd.id= new.hdd_id;
 end if;
-if(new.ram_id <> old.ram_id) then
+if( (new.ram_id <> old.ram_id) or (old.ram_id is null and new.ram_id is not null ) or (new.ram_id is null and old.ram_id is not null )) then
 update ram set ram.used=0 where ram.id = old.ram_id;
 update ram set ram.used=1 where ram.id = new.ram_id;
 end if;
-if(new.ram_id <> old.ram_id) then
-update ram set ram.used=0 where ram.id = old.ram_id;
-update ram set ram.used=1 where ram.id = new.ram_id;
+if( (new.monitor_id <> old.monitor_id) or (old.monitor_id is null and new.monitor_id is not null ) or (new.monitor_id is null and old.monitor_id is not null )) then
+update monitor set monitor.used=0 where monitor.id = old.monitor_id;
+update monitor set monitor.used=1 where monitor.id = new.monitor_id;
 end if;
-if(new.mouse_id <> old.mouse_id) then
+if( (new.mouse_id <> old.mouse_id) or (old.mouse_id is null and new.mouse_id is not null ) or (new.mouse_id is null and old.mouse_id is not null )) then
 update mouse set mouse.used=0 where mouse.id = old.mouse_id;
 update mouse set mouse.used=1 where mouse.id = new.mouse_id;
 end if;
-if(new.keyboard_id <> old.keyboard_id) then
+if( (new.keyboard_id <> old.keyboard_id) or (old.keyboard_id is null and new.keyboard_id is not null ) or (new.keyboard_id is null and old.keyboard_id is not null )) then
 update keyboard set keyboard.used=0 where keyboard.id = old.keyboard_id;
 update keyboard set keyboard.used=1 where keyboard.id = new.keyboard_id;
 end if;
-if(new.powersupply_id <> old.powersupply_id) then
+if( (new.powersupply_id <> old.powersupply_id) or (old.powersupply_id is null and new.powersupply_id is not null ) or (new.powersupply_id is null and old.powersupply_id is not null )) then
 update powersupply set powersupply.used=0 where powersupply.id = old.powersupply_id;
 update powersupply set powersupply.used=1 where powersupply.id = new.powersupply_id;
 end if;
-if(new.motherboard_id <> old.motherboard_id) then
+if( (new.motherboard_id <> old.motherboard_id) or (old.motherboard_id is null and new.motherboard_id is not null ) or (new.motherboard_id is null and old.motherboard_id is not null )) then
 update motherboard set motherboard.used=0 where motherboard.id = old.motherboard_id;
 update motherboard set motherboard.used=1 where motherboard.id = new.motherboard_id;
 end if;
-if(new.wifi_id <> old.wifi_id) then
+if( (new.wifi_id <> old.wifi_id) or (old.wifi_id is null and new.wifi_id is not null ) or (new.wifi_id is null and old.wifi_id is not null )) then
 update wifi set wifi.used=0 where wifi.id = old.wifi_id;
 update wifi set wifi.used=1 where wifi.id = new.wifi_id;
 end if;
