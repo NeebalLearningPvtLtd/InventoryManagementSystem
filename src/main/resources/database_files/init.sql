@@ -8,19 +8,19 @@ use ims;
 
 CREATE TABLE `laptop` (
   `id` int(20) primary key NOT NULL AUTO_INCREMENT,
-  `laptop_tag` varchar(50)  NOT NULL UNIQUE,
-  `brand` varchar(50) DEFAULT NULL,
+  `laptop_tag` varchar(255)  NOT NULL UNIQUE,
+  `brand` varchar(255) DEFAULT NULL,
   `model_num` varchar(15) DEFAULT NULL,
-  `serial_num` varchar(50) DEFAULT NULL,
-  `battery_serial_num` varchar(50) DEFAULT NULL,
+  `serial_num` varchar(255) DEFAULT NULL,
+  `battery_serial_num` varchar(255) DEFAULT NULL,
   `dop` date DEFAULT NULL,
   `warranty` tinyint(1) DEFAULT NULL,
   `vt` tinyint(1) DEFAULT NULL,
   `wifi` tinyint(1) DEFAULT NULL,
-  `ram` varchar(50) DEFAULT NULL,
-  `processor` varchar(50) DEFAULT NULL,
-  `hdd` varchar(50) DEFAULT NULL,
-  `supplier` varchar(50) DEFAULT NULL
+  `ram` varchar(255) DEFAULT NULL,
+  `processor` varchar(255) DEFAULT NULL,
+  `hdd` varchar(255) DEFAULT NULL,
+  `supplier` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -44,13 +44,13 @@ CREATE TABLE `laptopusedby` (
 
 CREATE TABLE `adapter` (
   `id` int(20) primary key NOT NULL AUTO_INCREMENT,
-  `adapter_tag`  varchar(50)  NOT NULL UNIQUE,
-  `brand` varchar(50) DEFAULT NULL,
-  `model_num` varchar(50) DEFAULT NULL,
-  `serial_num` varchar(50) DEFAULT NULL,
+  `adapter_tag`  varchar(255)  NOT NULL UNIQUE,
+  `brand` varchar(255) DEFAULT NULL,
+  `model_num` varchar(255) DEFAULT NULL,
+  `serial_num` varchar(255) DEFAULT NULL,
   `dop` date DEFAULT NULL,
   `warranty` tinyint(1) DEFAULT NULL,
-  `supplier` varchar(50) DEFAULT NULL
+  `supplier` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -76,11 +76,11 @@ CREATE TABLE `adapterusedby` (
 
 CREATE TABLE `hdd` (
   `id` int(20) NOT NULL  PRIMARY key AUTO_INCREMENT,
-  `hdd_tag` varchar(50) NOT NULL UNIQUE,
-  `brand` varchar(50) DEFAULT NULL,
-  `serial_num` varchar(50) DEFAULT NULL,
+  `hdd_tag` varchar(255) NOT NULL UNIQUE,
+  `brand` varchar(255) DEFAULT NULL,
+  `serial_num` varchar(255) DEFAULT NULL,
   `size` varchar(20) DEFAULT NULL,
-  `type` varchar(50) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -93,9 +93,9 @@ CREATE TABLE `hdd` (
 
 CREATE TABLE `keyboard` (
   `id` int(20) NOT NULL  PRIMARY key AUTO_INCREMENT,
-  `keyboard_tag` varchar (50) NOT NULL UNIQUE,
-  `brand` varchar(50) DEFAULT NULL,
-  `serial_num` varchar(50) DEFAULT NULL,
+  `keyboard_tag` varchar (255) NOT NULL UNIQUE,
+  `brand` varchar(255) DEFAULT NULL,
+  `serial_num` varchar(255) DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -110,11 +110,11 @@ CREATE TABLE `keyboard` (
 
 CREATE TABLE `monitor` (
   `id` int(20) NOT NULL PRIMARY key AUTO_INCREMENT,
-  `monitor_tag` varchar(50) NOT NULL UNIQUE,
-  `brand` varchar(50) DEFAULT NULL,
-  `serial_num` varchar(50) DEFAULT NULL,
-  `model_num` varchar(50) DEFAULT NULL,
-  `resolution` varchar(50) DEFAULT NULL,
+  `monitor_tag` varchar(255) NOT NULL UNIQUE,
+  `brand` varchar(255) DEFAULT NULL,
+  `serial_num` varchar(255) DEFAULT NULL,
+  `model_num` varchar(255) DEFAULT NULL,
+  `resolution` varchar(255) DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -128,10 +128,10 @@ CREATE TABLE `monitor` (
 
 CREATE TABLE `motherboard` (
   `id` int(20) NOT NULL  PRIMARY key AUTO_INCREMENT,
-  `motherboard_tag` varchar(50) NOT NULL UNIQUE,
-  `brand` varchar(50) DEFAULT NULL,
-  `serial_num` varchar(50) DEFAULT NULL,
-  `model_num` varchar(50) DEFAULT NULL,
+  `motherboard_tag` varchar(255) NOT NULL UNIQUE,
+  `brand` varchar(255) DEFAULT NULL,
+  `serial_num` varchar(255) DEFAULT NULL,
+  `model_num` varchar(255) DEFAULT NULL,
   `vt` tinyint(1) DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
@@ -145,10 +145,10 @@ CREATE TABLE `motherboard` (
 
 CREATE TABLE `mouse` (
   `id` int(20) NOT NULL  PRIMARY key AUTO_INCREMENT,
-  `mouse_tag` varchar(50) NOT NULL UNIQUE,
-  `brand` varchar(50) DEFAULT NULL,
-  `serial_num` varchar(50) DEFAULT NULL,
-  `conn_type` varchar(50) DEFAULT NULL,
+  `mouse_tag` varchar(255) NOT NULL UNIQUE,
+  `brand` varchar(255) DEFAULT NULL,
+  `serial_num` varchar(255) DEFAULT NULL,
+  `conn_type` varchar(255) DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -159,9 +159,9 @@ CREATE TABLE `mouse` (
 
 CREATE TABLE `powersupply` (
   `id` int(20) NOT NULL  PRIMARY key AUTO_INCREMENT,
-  `powersupply_tag` varchar(50) NOT NULL UNIQUE,
-  `brand` varchar(50) DEFAULT NULL,
-  `serial_num` varchar(50) DEFAULT NULL,
+  `powersupply_tag` varchar(255) NOT NULL UNIQUE,
+  `brand` varchar(255) DEFAULT NULL,
+  `serial_num` varchar(255) DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -174,11 +174,11 @@ CREATE TABLE `powersupply` (
 
 CREATE TABLE `ram` (
   `id` int(20) NOT NULL  PRIMARY key AUTO_INCREMENT,
-  `ram_tag` varchar(50) NOT NULL UNIQUE,
-  `brand` varchar(50) DEFAULT NULL,
-  `serial_num` varchar(50) DEFAULT NULL,
+  `ram_tag` varchar(255) NOT NULL UNIQUE,
+  `brand` varchar(255) DEFAULT NULL,
+  `serial_num` varchar(255) DEFAULT NULL,
   `size` varchar(20) DEFAULT NULL,
-  `type` varchar(50) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -191,9 +191,9 @@ CREATE TABLE `ram` (
 
 CREATE TABLE `wifi` (
   `id` int(20) NOT NULL  PRIMARY key AUTO_INCREMENT,
-  `wifi_tag` varchar(50) NOT NULL UNIQUE,
-  `brand` varchar(50) DEFAULT NULL,
-  `model_num` varchar(50) DEFAULT NULL,
+  `wifi_tag` varchar(255) NOT NULL UNIQUE,
+  `brand` varchar(255) DEFAULT NULL,
+  `model_num` varchar(255) DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
   `used` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -206,7 +206,7 @@ CREATE TABLE `wifi` (
 
 CREATE TABLE `pc` (
   `id` int(20) NOT NULL  PRIMARY key AUTO_INCREMENT,
-  `pc_tag` varchar(50) NOT NULL UNIQUE,
+  `pc_tag` varchar(255) NOT NULL UNIQUE,
   `ram_id` int(20) DEFAULT NULL,
   `hdd_id` int(20) DEFAULT NULL,
   `keyboard_id` int(20) DEFAULT NULL,
@@ -215,7 +215,7 @@ CREATE TABLE `pc` (
   `wifi_id` int(20) DEFAULT NULL,
   `motherboard_id` int(20) DEFAULT NULL,
   `monitor_id` int(20) DEFAULT NULL,
-  `processor` varchar(50) DEFAULT NULL,
+  `processor` varchar(255) DEFAULT NULL,
   `vt` tinyint(1) DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
   UNIQUE key `uni_ram_id`(`ram_id`) using BTREE,
@@ -303,3 +303,451 @@ end if;
 end$$
 
 DELIMITER ;
+
+
+-- Audit tables
+
+--
+-- Table structure for table `adapterusedby_audit_log`
+--
+
+CREATE TABLE `adapterusedby_audit_log` (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `time` datetime DEFAULT NULL,
+  `adapter_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adapter_audit_log`
+--
+
+CREATE TABLE `adapter_audit_log` (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) DEFAULT NULL,
+  `adapter_tag` varchar(255) DEFAULT NULL,
+  `brand` varchar(255) DEFAULT NULL,
+  `dop` datetime DEFAULT NULL,
+  `model_num` varchar(255) DEFAULT NULL,
+  `serial_num` varchar(255) DEFAULT NULL,
+  `supplier` varchar(255) DEFAULT NULL,
+  `warranty` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hdd_audit_log`
+--
+
+CREATE TABLE `hdd_audit_log` (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) DEFAULT NULL,
+  `brand` varchar(255) DEFAULT NULL,
+  `hdd_tag` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `serial_num` varchar(255) DEFAULT NULL,
+  `size` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `used` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `keyboard_audit_log`
+--
+
+CREATE TABLE `keyboard_audit_log` (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) DEFAULT NULL,
+  `brand` varchar(255) DEFAULT NULL,
+  `keyboard_tag` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `serial_num` varchar(255) DEFAULT NULL,
+  `used` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `laptopusedby_audit_log`
+--
+
+CREATE TABLE `laptopusedby_audit_log` (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `time` datetime DEFAULT NULL,
+  `laptop_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `laptop_audit_log`
+--
+
+CREATE TABLE `laptop_audit_log` (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) DEFAULT NULL,
+  `battery_serial_num` varchar(255) DEFAULT NULL,
+  `brand` varchar(255) DEFAULT NULL,
+  `dop` datetime DEFAULT NULL,
+  `hdd` varchar(255) DEFAULT NULL,
+  `laptop_tag` varchar(255) DEFAULT NULL,
+  `model_num` varchar(255) DEFAULT NULL,
+  `processor` varchar(255) DEFAULT NULL,
+  `ram` varchar(255) DEFAULT NULL,
+  `serial_num` varchar(255) DEFAULT NULL,
+  `supplier` varchar(255) DEFAULT NULL,
+  `vt` bit(1) DEFAULT NULL,
+  `warranty` bit(1) DEFAULT NULL,
+  `wifi` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `monitor_audit_log`
+--
+
+CREATE TABLE `monitor_audit_log` (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) DEFAULT NULL,
+  `brand` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `model_num` varchar(255) DEFAULT NULL,
+  `monitor_tag` varchar(255) DEFAULT NULL,
+  `resolution` varchar(255) DEFAULT NULL,
+  `serial_num` varchar(255) DEFAULT NULL,
+  `used` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `motherboard_audit_log`
+--
+
+CREATE TABLE `motherboard_audit_log` (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) DEFAULT NULL,
+  `brand` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `model_num` varchar(255) DEFAULT NULL,
+  `motherboard_tag` varchar(255) DEFAULT NULL,
+  `serial_num` varchar(255) DEFAULT NULL,
+  `used` bit(1) DEFAULT NULL,
+  `vt` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mouse_audit_log`
+--
+
+CREATE TABLE `mouse_audit_log` (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) DEFAULT NULL,
+  `brand` varchar(255) DEFAULT NULL,
+  `conn_type` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `mouse_tag` varchar(255) DEFAULT NULL,
+  `serial_num` varchar(255) DEFAULT NULL,
+  `used` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pc_audit_log`
+--
+
+CREATE TABLE `pc_audit_log` (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `pc_tag` varchar(255) DEFAULT NULL,
+  `processor` varchar(255) DEFAULT NULL,
+  `vt` bit(1) DEFAULT NULL,
+  `hdd_id` bigint(20) DEFAULT NULL,
+  `keyboard_id` bigint(20) DEFAULT NULL,
+  `monitor_id` bigint(20) DEFAULT NULL,
+  `motherboard_id` bigint(20) DEFAULT NULL,
+  `mouse_id` bigint(20) DEFAULT NULL,
+  `powersupply_id` bigint(20) DEFAULT NULL,
+  `ram_id` bigint(20) DEFAULT NULL,
+  `wifi_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `powersupply_audit_log`
+--
+
+CREATE TABLE `powersupply_audit_log` (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) DEFAULT NULL,
+  `brand` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `powersupply_tag` varchar(255) DEFAULT NULL,
+  `serial_num` varchar(255) DEFAULT NULL,
+  `used` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ram_audit_log`
+--
+
+CREATE TABLE `ram_audit_log` (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) DEFAULT NULL,
+  `brand` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `ram_tag` varchar(255) DEFAULT NULL,
+  `serial_num` varchar(255) DEFAULT NULL,
+  `size` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `used` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `revinfo`
+--
+
+CREATE TABLE `revinfo` (
+  `rev` int(11) NOT NULL,
+  `revtstmp` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wifi_audit_log`
+--
+
+CREATE TABLE `wifi_audit_log` (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) DEFAULT NULL,
+  `brand` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `model_num` varchar(255) DEFAULT NULL,
+  `used` bit(1) DEFAULT NULL,
+  `wifi_tag` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `adapterusedby_audit_log`
+--
+ALTER TABLE `adapterusedby_audit_log`
+  ADD PRIMARY KEY (`id`,`rev`),
+  ADD KEY `FKn9pqto89quu0brqutvmkodvh6` (`rev`);
+
+--
+-- Indexes for table `adapter_audit_log`
+--
+ALTER TABLE `adapter_audit_log`
+  ADD PRIMARY KEY (`id`,`rev`),
+  ADD KEY `FKt91beef58wc90ur3nwm1hoevi` (`rev`);
+
+--
+-- Indexes for table `hdd_audit_log`
+--
+ALTER TABLE `hdd_audit_log`
+  ADD PRIMARY KEY (`id`,`rev`),
+  ADD KEY `FK4wxofjp5d1e74dqke6emtb64g` (`rev`);
+
+--
+-- Indexes for table `keyboard_audit_log`
+--
+ALTER TABLE `keyboard_audit_log`
+  ADD PRIMARY KEY (`id`,`rev`),
+  ADD KEY `FKqdplijh4cuiguehns242k10r8` (`rev`);
+
+--
+-- Indexes for table `laptopusedby_audit_log`
+--
+ALTER TABLE `laptopusedby_audit_log`
+  ADD PRIMARY KEY (`id`,`rev`),
+  ADD KEY `FK89semi46bmwi5gcfvfnnijny5` (`rev`);
+
+--
+-- Indexes for table `laptop_audit_log`
+--
+ALTER TABLE `laptop_audit_log`
+  ADD PRIMARY KEY (`id`,`rev`),
+  ADD KEY `FKesmmmndtp4h8gv1t7jsq55njy` (`rev`);
+
+--
+-- Indexes for table `monitor_audit_log`
+--
+ALTER TABLE `monitor_audit_log`
+  ADD PRIMARY KEY (`id`,`rev`),
+  ADD KEY `FK8rwfb2q069156nebxwcnbpikg` (`rev`);
+
+--
+-- Indexes for table `motherboard_audit_log`
+--
+ALTER TABLE `motherboard_audit_log`
+  ADD PRIMARY KEY (`id`,`rev`),
+  ADD KEY `FKmp6tn2drvk518nvtccaohyjbj` (`rev`);
+
+--
+-- Indexes for table `mouse_audit_log`
+--
+ALTER TABLE `mouse_audit_log`
+  ADD PRIMARY KEY (`id`,`rev`),
+  ADD KEY `FKk38k7nfpev8yr4egim7o4b3gm` (`rev`);
+
+--
+-- Indexes for table `pc_audit_log`
+--
+ALTER TABLE `pc_audit_log`
+  ADD PRIMARY KEY (`id`,`rev`),
+  ADD KEY `FK69x9hfdnbykb0ryc1yamd72da` (`rev`);
+
+--
+-- Indexes for table `powersupply_audit_log`
+--
+ALTER TABLE `powersupply_audit_log`
+  ADD PRIMARY KEY (`id`,`rev`),
+  ADD KEY `FKhf9qhogdnyec7a7wgehe2fi1` (`rev`);
+
+--
+-- Indexes for table `ram_audit_log`
+--
+ALTER TABLE `ram_audit_log`
+  ADD PRIMARY KEY (`id`,`rev`),
+  ADD KEY `FKrb5dxer30ns7m8qjpplxvwje4` (`rev`);
+
+--
+-- Indexes for table `revinfo`
+--
+ALTER TABLE `revinfo`
+  ADD PRIMARY KEY (`rev`);
+
+--
+-- Indexes for table `wifi_audit_log`
+--
+ALTER TABLE `wifi_audit_log`
+  ADD PRIMARY KEY (`id`,`rev`),
+  ADD KEY `FK1tmu6fj6c58s0ua21tydglu0x` (`rev`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `revinfo`
+--
+ALTER TABLE `revinfo`
+  MODIFY `rev` int(11) NOT NULL AUTO_INCREMENT;
+  
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `adapterusedby_audit_log`
+--
+ALTER TABLE `adapterusedby_audit_log`
+  ADD CONSTRAINT `FKn9pqto89quu0brqutvmkodvh6` FOREIGN KEY (`rev`) REFERENCES `revinfo` (`rev`);
+
+--
+-- Constraints for table `adapter_audit_log`
+--
+ALTER TABLE `adapter_audit_log`
+  ADD CONSTRAINT `FKt91beef58wc90ur3nwm1hoevi` FOREIGN KEY (`rev`) REFERENCES `revinfo` (`rev`);
+
+--
+-- Constraints for table `hdd_audit_log`
+--
+ALTER TABLE `hdd_audit_log`
+  ADD CONSTRAINT `FK4wxofjp5d1e74dqke6emtb64g` FOREIGN KEY (`rev`) REFERENCES `revinfo` (`rev`);
+
+--
+-- Constraints for table `keyboard_audit_log`
+--
+ALTER TABLE `keyboard_audit_log`
+  ADD CONSTRAINT `FKqdplijh4cuiguehns242k10r8` FOREIGN KEY (`rev`) REFERENCES `revinfo` (`rev`);
+
+--
+-- Constraints for table `laptopusedby_audit_log`
+--
+ALTER TABLE `laptopusedby_audit_log`
+  ADD CONSTRAINT `FK89semi46bmwi5gcfvfnnijny5` FOREIGN KEY (`rev`) REFERENCES `revinfo` (`rev`);
+
+--
+-- Constraints for table `laptop_audit_log`
+--
+ALTER TABLE `laptop_audit_log`
+  ADD CONSTRAINT `FKesmmmndtp4h8gv1t7jsq55njy` FOREIGN KEY (`rev`) REFERENCES `revinfo` (`rev`);
+
+--
+-- Constraints for table `monitor_audit_log`
+--
+ALTER TABLE `monitor_audit_log`
+  ADD CONSTRAINT `FK8rwfb2q069156nebxwcnbpikg` FOREIGN KEY (`rev`) REFERENCES `revinfo` (`rev`);
+
+--
+-- Constraints for table `motherboard_audit_log`
+--
+ALTER TABLE `motherboard_audit_log`
+  ADD CONSTRAINT `FKmp6tn2drvk518nvtccaohyjbj` FOREIGN KEY (`rev`) REFERENCES `revinfo` (`rev`);
+
+--
+-- Constraints for table `mouse_audit_log`
+--
+ALTER TABLE `mouse_audit_log`
+  ADD CONSTRAINT `FKk38k7nfpev8yr4egim7o4b3gm` FOREIGN KEY (`rev`) REFERENCES `revinfo` (`rev`);
+
+--
+-- Constraints for table `pc_audit_log`
+--
+ALTER TABLE `pc_audit_log`
+  ADD CONSTRAINT `FK69x9hfdnbykb0ryc1yamd72da` FOREIGN KEY (`rev`) REFERENCES `revinfo` (`rev`);
+
+--
+-- Constraints for table `powersupply_audit_log`
+--
+ALTER TABLE `powersupply_audit_log`
+  ADD CONSTRAINT `FKhf9qhogdnyec7a7wgehe2fi1` FOREIGN KEY (`rev`) REFERENCES `revinfo` (`rev`);
+
+--
+-- Constraints for table `ram_audit_log`
+--
+ALTER TABLE `ram_audit_log`
+  ADD CONSTRAINT `FKrb5dxer30ns7m8qjpplxvwje4` FOREIGN KEY (`rev`) REFERENCES `revinfo` (`rev`);
+
+--
+-- Constraints for table `wifi_audit_log`
+--
+ALTER TABLE `wifi_audit_log`
+  ADD CONSTRAINT `FK1tmu6fj6c58s0ua21tydglu0x` FOREIGN KEY (`rev`) REFERENCES `revinfo` (`rev`);
