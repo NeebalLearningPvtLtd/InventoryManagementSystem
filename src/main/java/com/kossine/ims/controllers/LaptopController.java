@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kossine.ims.exceptions.ModelNotFoundException;
 import com.kossine.ims.models.Laptop;
-import com.kossine.ims.repository.exceptions.IntegrityConstraintViolationException;
 import com.kossine.ims.service.LaptopService;
 
 @RestController
@@ -42,14 +41,14 @@ public class LaptopController {
 	}
 
 	@PostMapping(path = "/add", produces = "application/json")
-	public ResponseEntity<?> addLaptop(@Valid @RequestBody Laptop laptop) throws IntegrityConstraintViolationException {
+	public ResponseEntity<?> addLaptop(@Valid @RequestBody Laptop laptop) {
 
 		return ResponseEntity.ok("{ \"id\" : " + service.saveLaptopToDB(laptop) + "}");
 	}
 
 	@PutMapping("/{id:\\d+}")
 	public ResponseEntity<?> updateLaptop(@PathVariable Long id, @RequestBody Laptop laptop)
-			throws ModelNotFoundException, IntegrityConstraintViolationException {
+			throws ModelNotFoundException  {
 		service.updateLaptop(id, laptop);
 		return ResponseEntity.ok().build();
 	}

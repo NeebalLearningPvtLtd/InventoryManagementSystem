@@ -18,44 +18,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kossine.ims.exceptions.ModelNotFoundException;
-import com.kossine.ims.models.Adapter;
-import com.kossine.ims.service.AdapterService;
+import com.kossine.ims.models.Wifi;
+import com.kossine.ims.service.WifiService;
 
 @RestController
-@RequestMapping("/adapter")
-public class AdapterController {
+@RequestMapping("/wifi")
+public class WifiController {
 
 	@Autowired
-	AdapterService service;
+	WifiService service;
 
 	@GetMapping("/get/all")
-	public List<Adapter> getAll(@PageableDefault(page=0 , size=20) Pageable pageable)  {
+	public List<Wifi> getAll(@PageableDefault(page=0 , size=20) Pageable pageable)  {
 		
-		return service.findAllAdapter(pageable);
+		return service.findAllWifi(pageable);
 	}
 
 	@GetMapping("/get/{id:\\d+}")
 	public ResponseEntity<?> get(@PathVariable Long id) throws ModelNotFoundException {
 
-		return ResponseEntity.ok(service.findAdapterById(id));
+		return ResponseEntity.ok(service.findWifiById(id));
 	}
 
 	@PostMapping(path = "/add", produces = "application/json")
-	public ResponseEntity<?> addAdapter(@Valid @RequestBody Adapter adapter)   {
+	public ResponseEntity<?> addWifi(@Valid @RequestBody Wifi wifi){
 
-		return ResponseEntity.ok("{ \"id\" : " + service.saveAdapterToDB(adapter) + "}");
+		return ResponseEntity.ok("{ \"id\" : " + service.saveWifiToDB(wifi) + "}");
 	}
 
 	@PutMapping("/{id:\\d+}")
-	public ResponseEntity<?> updateAdapter(@PathVariable Long id, @RequestBody Adapter adapter)
+	public ResponseEntity<?> updateWifi(@PathVariable Long id, @RequestBody Wifi wifi)
 			throws ModelNotFoundException  {
-		service.updateAdapter(id, adapter);
+		service.updateWifi(id, wifi);
 		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("/{id:\\d+}")
-	public ResponseEntity<?> deleteAdapterById(@PathVariable Long id) throws ModelNotFoundException {
-		service.deleteAdapterById(id);
+	public ResponseEntity<?> deleteWifiById(@PathVariable Long id) throws ModelNotFoundException {
+		service.deleteWifiById(id);
 		return ResponseEntity.ok().build();
 	}
 }

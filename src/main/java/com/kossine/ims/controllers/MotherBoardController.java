@@ -18,44 +18,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kossine.ims.exceptions.ModelNotFoundException;
-import com.kossine.ims.models.Adapter;
-import com.kossine.ims.service.AdapterService;
+import com.kossine.ims.models.MotherBoard;
+import com.kossine.ims.service.MotherBoardService;
 
 @RestController
-@RequestMapping("/adapter")
-public class AdapterController {
+@RequestMapping("/motherboard")
+public class MotherBoardController {
 
 	@Autowired
-	AdapterService service;
+	MotherBoardService service;
 
 	@GetMapping("/get/all")
-	public List<Adapter> getAll(@PageableDefault(page=0 , size=20) Pageable pageable)  {
+	public List<MotherBoard> getAll(@PageableDefault(page=0 , size=20) Pageable pageable)  {
 		
-		return service.findAllAdapter(pageable);
+		return service.findAllMotherBoard(pageable);
 	}
 
 	@GetMapping("/get/{id:\\d+}")
 	public ResponseEntity<?> get(@PathVariable Long id) throws ModelNotFoundException {
 
-		return ResponseEntity.ok(service.findAdapterById(id));
+		return ResponseEntity.ok(service.findMotherBoardById(id));
 	}
 
 	@PostMapping(path = "/add", produces = "application/json")
-	public ResponseEntity<?> addAdapter(@Valid @RequestBody Adapter adapter)   {
+	public ResponseEntity<?> addMotherBoard(@Valid @RequestBody MotherBoard motherboard) {
 
-		return ResponseEntity.ok("{ \"id\" : " + service.saveAdapterToDB(adapter) + "}");
+		return ResponseEntity.ok("{ \"id\" : " + service.saveMotherBoardToDB(motherboard) + "}");
 	}
 
 	@PutMapping("/{id:\\d+}")
-	public ResponseEntity<?> updateAdapter(@PathVariable Long id, @RequestBody Adapter adapter)
+	public ResponseEntity<?> updateMotherBoard(@PathVariable Long id, @RequestBody MotherBoard motherboard)
 			throws ModelNotFoundException  {
-		service.updateAdapter(id, adapter);
+		service.updateMotherBoard(id, motherboard);
 		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("/{id:\\d+}")
-	public ResponseEntity<?> deleteAdapterById(@PathVariable Long id) throws ModelNotFoundException {
-		service.deleteAdapterById(id);
+	public ResponseEntity<?> deleteMotherBoardById(@PathVariable Long id) throws ModelNotFoundException {
+		service.deleteMotherBoardById(id);
 		return ResponseEntity.ok().build();
 	}
 }

@@ -18,44 +18,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kossine.ims.exceptions.ModelNotFoundException;
-import com.kossine.ims.models.Adapter;
-import com.kossine.ims.service.AdapterService;
+import com.kossine.ims.models.Hdd;
+import com.kossine.ims.service.HddService;
 
 @RestController
-@RequestMapping("/adapter")
-public class AdapterController {
+@RequestMapping("/hdd")
+public class HddController {
 
 	@Autowired
-	AdapterService service;
+	HddService service;
 
 	@GetMapping("/get/all")
-	public List<Adapter> getAll(@PageableDefault(page=0 , size=20) Pageable pageable)  {
+	public List<Hdd> getAll(@PageableDefault(page=0 , size=20) Pageable pageable)  {
 		
-		return service.findAllAdapter(pageable);
+		return service.findAllHdd(pageable);
 	}
 
 	@GetMapping("/get/{id:\\d+}")
 	public ResponseEntity<?> get(@PathVariable Long id) throws ModelNotFoundException {
 
-		return ResponseEntity.ok(service.findAdapterById(id));
+		return ResponseEntity.ok(service.findHddById(id));
 	}
 
 	@PostMapping(path = "/add", produces = "application/json")
-	public ResponseEntity<?> addAdapter(@Valid @RequestBody Adapter adapter)   {
+	public ResponseEntity<?> addHdd(@Valid @RequestBody Hdd hdd)   {
 
-		return ResponseEntity.ok("{ \"id\" : " + service.saveAdapterToDB(adapter) + "}");
+		return ResponseEntity.ok("{ \"id\" : " + service.saveHddToDB(hdd) + "}");
 	}
 
 	@PutMapping("/{id:\\d+}")
-	public ResponseEntity<?> updateAdapter(@PathVariable Long id, @RequestBody Adapter adapter)
+	public ResponseEntity<?> updateHdd(@PathVariable Long id, @RequestBody Hdd hdd)
 			throws ModelNotFoundException  {
-		service.updateAdapter(id, adapter);
+		service.updateHdd(id, hdd);
 		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("/{id:\\d+}")
-	public ResponseEntity<?> deleteAdapterById(@PathVariable Long id) throws ModelNotFoundException {
-		service.deleteAdapterById(id);
+	public ResponseEntity<?> deleteHddById(@PathVariable Long id) throws ModelNotFoundException {
+		service.deleteHddById(id);
 		return ResponseEntity.ok().build();
 	}
 }
