@@ -6,8 +6,11 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.envers.Audited;
+
 @NamedQueries({ @NamedQuery(query = "Select e from Hdd e where e.hddTag= :tag", name = "Hdd.getByTag") })
 @Entity
+@Audited
 public class Hdd extends Inventory {
 
 	@Column(name = "hdd_tag", unique = true, nullable = false)

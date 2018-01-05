@@ -6,11 +6,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
+
+import org.hibernate.envers.Audited;
 @NamedQueries({
 @NamedQuery(query = "Select e from MotherBoard e where e.motherBoardTag= :tag", name = "MotherBoard.getByTag")
 })
 @Entity
 @Table(name="motherboard")
+@Audited
 public class MotherBoard extends Inventory {
 	@Column(name = "motherboard_tag", unique = true, nullable = false)
 	@Pattern(regexp = "^MTB/\\w+/\\w+/\\d+$")

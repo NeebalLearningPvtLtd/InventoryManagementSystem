@@ -7,10 +7,13 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.envers.Audited;
+
 @NamedQueries({
 		@NamedQuery(query = "Select e from Pc e left join fetch e.ram left join fetch e.hdd left join fetch e.mouse left join fetch e.keyboard left join fetch e.powersupply left join fetch e.motherboard left join fetch e.monitor left join fetch e.wifi where e.pcTag= :tag", name = "Pc.getByTag"),
 		@NamedQuery(query = "Select e from Pc e left join fetch e.ram left join fetch e.hdd left join fetch e.mouse left join fetch e.keyboard left join fetch e.powersupply left join fetch e.motherboard left join fetch e.monitor left join fetch e.wifi ", name = "Pc.findAllWithJoin") })
 @Entity
+@Audited
 public class Pc extends Inventory {
 
 	@Column(name = "pc_tag", unique = true, nullable = false)
@@ -135,7 +138,20 @@ public class Pc extends Inventory {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-
+	/*public void copy(Pc updated) {
+		if (updated.getPcTag()!= null)
+			setPcTag(updated.getPcTag());
+		if (updated.getSerialNum() != null)
+			setSerialNum(updated.getSerialNum());
+		if (updated.getModelNum() != null)
+			setModelNum(updated.getModelNum());
+		if (updated.getBrand() != null)
+			setBrand(updated.getBrand());
+		if (updated.getVt() != null)
+			setVt(updated.getVt());
+		if (updated.getLocation() != null)
+			setLocation(updated.getLocation());
+	}*/
 	@Override
 	public String toString() {
 		return "Pc [pcTag=" + pcTag + ", processor=" + processor + ", ram=" + ram + ", hdd=" + hdd + ", mouse=" + mouse

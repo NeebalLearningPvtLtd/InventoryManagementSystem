@@ -6,11 +6,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
+
+import org.hibernate.envers.Audited;
 @NamedQueries({
 @NamedQuery(query = "Select e from KeyBoard e where e.keyBoardTag= :tag", name = "KeyBoard.getByTag")
 })
 @Entity
 @Table(name="keyboard")
+@Audited
 public class KeyBoard extends Inventory {
 
 	@Column(name = "keyboard_tag", unique = true, nullable = false)

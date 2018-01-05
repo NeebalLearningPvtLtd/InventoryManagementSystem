@@ -5,10 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.Pattern;
+
+import org.hibernate.envers.Audited;
 @NamedQueries({
 @NamedQuery(query = "Select e from Mouse e where e.mouseTag= :tag", name = "Mouse.getByTag")
 })
 @Entity
+@Audited
 public class Mouse extends Inventory {
 
 	@Column(name = "mouse_tag", unique = true, nullable = false)

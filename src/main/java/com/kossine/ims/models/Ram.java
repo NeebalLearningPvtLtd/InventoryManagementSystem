@@ -5,10 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.Pattern;
+
+import org.hibernate.envers.Audited;
 @NamedQueries({
 @NamedQuery(query = "Select e from Ram e where e.ramTag= :tag", name = "Ram.getByTag")
 })
 @Entity
+@Audited
 public class Ram extends Inventory {
 	@Column(name = "ram_tag", unique = true, nullable = false)
 	@Pattern(regexp = "^RAM/\\w+/\\w+/\\d+$")

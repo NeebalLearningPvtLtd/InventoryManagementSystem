@@ -5,10 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.Pattern;
+
+import org.hibernate.envers.Audited;
 @NamedQueries({
 @NamedQuery(query = "Select e from Wifi e where e.wifiTag= :tag", name = "Wifi.getByTag")
 })
 @Entity
+@Audited
 public class Wifi extends Inventory {
 
 	@Column(name = "wifi_tag", unique = true, nullable = false)

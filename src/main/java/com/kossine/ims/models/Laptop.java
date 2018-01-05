@@ -9,6 +9,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
@@ -19,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 		@NamedQuery(query = "Select e from Laptop e where e.laptopTag like :laptopTag", name = "getByLaptopTagLikeQuery") })
 
 @Entity
+@Audited
 public class Laptop extends Inventory {
 	@Column(name = "laptop_tag", unique = true, nullable = false)
 	@NotEmpty

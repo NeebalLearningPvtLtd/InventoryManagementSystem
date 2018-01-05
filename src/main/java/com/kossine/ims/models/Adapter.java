@@ -9,6 +9,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
@@ -18,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 @NamedQueries({ @NamedQuery(query = "select e from Adapter e where e.adapterTag = :tag", name = "Adapter.getByTag"),
 		@NamedQuery(query = "Select e from Adapter e where e.adapterTag like :adapterTag", name = "getByAdapterTagLikeQuery"), })
 @Entity
+@Audited
 public class Adapter extends Inventory {
 	@Column(name = "adapter_tag", unique = true, nullable = false)
 	@NotEmpty

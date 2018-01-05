@@ -6,11 +6,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
+
+import org.hibernate.envers.Audited;
 @NamedQueries({
 @NamedQuery(query = "Select e from PowerSupply e where e.powerSupplyTag= :tag", name = "PowerSupply.getByTag")
 })
 @Entity
 @Table(name="powersupply")
+@Audited
 public class PowerSupply extends Inventory {
 	@Column(name = "powersupply_tag", unique = true, nullable = false)
 	@Pattern(regexp = "^PWS/\\w+/\\w+/\\d+$")

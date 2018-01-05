@@ -9,13 +9,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.envers.Audited;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 @Entity
 @Table(name="laptopusedby")
+@Audited
 public class LaptopUsedBy {
 	@Id
 	@GeneratedValue
@@ -29,7 +30,6 @@ public class LaptopUsedBy {
 	private LocalDateTime time;
 	
 	@Size(max = 255)
-	@NotNull
 	private String location;
 
 	public long getId() {

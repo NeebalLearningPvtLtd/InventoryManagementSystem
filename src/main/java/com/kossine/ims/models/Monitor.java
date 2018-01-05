@@ -5,10 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.Pattern;
+
+import org.hibernate.envers.Audited;
 @NamedQueries({
 @NamedQuery(query = "Select e from Monitor e where e.monitorTag= :tag", name = "Monitor.getByTag")
 })
 @Entity
+@Audited
 public class Monitor extends Inventory {
 	@Column(name = "monitor_tag", unique = true, nullable = false)
 	@Pattern(regexp = "^MON/\\w+/\\w+/\\d+$")
