@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 
 import com.kossine.ims.models.Inventory;
-import com.kossine.ims.repository.exceptions.IntegrityConstraintViolationException;
 
 public interface GenericRepo<T extends Inventory> {
 
@@ -16,13 +15,13 @@ public interface GenericRepo<T extends Inventory> {
 
 	List<T> findAll(Pageable pageable);
 
-	void save(T entity) throws IntegrityConstraintViolationException;
+	void save(T entity);
 
 	void bulkSave(Collection<T> entities);
 
 	void bulkDelete();
 
-	void update(T entity) throws IntegrityConstraintViolationException;
+	void update(T entity);
 
 	void delete(T entity);
 

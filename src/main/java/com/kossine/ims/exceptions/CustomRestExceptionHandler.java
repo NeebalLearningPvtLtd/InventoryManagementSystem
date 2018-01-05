@@ -1,12 +1,12 @@
 package com.kossine.ims.exceptions;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,13 +23,12 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.kossine.ims.repository.exceptions.IntegrityConstraintViolationException;
 
 @RestControllerAdvice
 public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 	
-	@ExceptionHandler(IntegrityConstraintViolationException.class)
-	public ResponseEntity<Object> handleConstraintViolationWhenSavingOrUpdating(IntegrityConstraintViolationException ex) {
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<Object> handleConstraintViolationWhenSavingOrUpdating(DataIntegrityViolationException ex) {
 		
 		ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), ex.getCause().toString());
 
@@ -41,7 +40,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(ModelNotFoundException.class)
 	public ResponseEntity<Object> handleEntityNotFound(ModelNotFoundException ex) {
 
-		ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), ex.getErrors());
+		ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getLocalizedMessage(), ex.getErrors());
 
 		return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
 	}
@@ -134,9 +133,8 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 	// default Exception handler , should be rarely used
 	@ExceptionHandler({ Exception.class })
 	public ResponseEntity<Object> handleAll(Exception ex, WebRequest request) {
-		List<String> errors = new ArrayList<String>();
-		Arrays.stream(ex.getStackTrace()).forEach(e -> errors.add(e.toString()));
-		ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, ex.getLocalizedMessage(), errors);
+
+		ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, ex.getLocalizedMessage(), ex.getCause().toString());
 		return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
 	}
 }

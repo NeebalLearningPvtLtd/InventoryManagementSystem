@@ -10,12 +10,10 @@ import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Pageable;
 
 import com.kossine.ims.models.Inventory;
 import com.kossine.ims.repository.GenericRepo;
-import com.kossine.ims.repository.exceptions.IntegrityConstraintViolationException;
 
 @Transactional
 @SuppressWarnings("unchecked")
@@ -70,19 +68,14 @@ public abstract class GenericRepoImpl<T extends Inventory> implements GenericRep
 				.setMaxResults(pageable.getPageSize()).getResultList();
 	}
 
-	public void save(T entity) throws IntegrityConstraintViolationException {
+	public void save(T entity) {
 		if (entity == null)
 			return;
 
 		log.debug("trying to save " + clazz.getSimpleName() + " id : " + entity.getId());
 
-		try {
-			em.persist(entity);
-			log.debug("entity saved id : " + entity.getId());
-		} catch (DataIntegrityViolationException e) {
-			log.error("entity " + clazz.getSimpleName() + " violated constraints " + e);
-			throw new IntegrityConstraintViolationException(e.getLocalizedMessage());
-		}
+		em.persist(entity);
+		log.debug("entity saved id : " + entity.getId());
 
 	}
 
@@ -94,15 +87,10 @@ public abstract class GenericRepoImpl<T extends Inventory> implements GenericRep
 			if (entity == null)
 				continue;
 			// not yet persisted , when mapping from excel
-			try {
-				if (entity.getId() == 0)
-					save(entity);
-				else
-
-					update(entity);
-			} catch (IntegrityConstraintViolationException e) {
-				log.error("entity " + clazz.getSimpleName() + " violated constraints " + e);
-			}
+			if (entity.getId() == 0)
+				save(entity);
+			else
+				update(entity);
 
 			if (i % batchsize == 0) {
 				em.flush();
@@ -120,22 +108,20 @@ public abstract class GenericRepoImpl<T extends Inventory> implements GenericRep
 		// Delete Inventory table and all its dependent tables
 	}
 
-	public void update(T entity) throws IntegrityConstraintViolationException {
+	public void update(T entity) {
 		if (entity == null)
 			return;
 		log.debug("trying to update " + clazz.getSimpleName() + " id : " + entity.getId());
 
 		try {
-			try {
-				em.merge(entity);
-				log.debug("entity updated id : " + entity.getId());
-			} catch (IllegalArgumentException ex) {
-				log.warn("updating of entity :" + clazz.getSimpleName() + " failed " + ex);
-			}
-		} catch (DataIntegrityViolationException e) {
-			log.error("entity " + clazz.getSimpleName() + " violated constraints " + e);
-			throw new IntegrityConstraintViolationException(e.getLocalizedMessage());
+			em.merge(entity);
+			log.debug("entity updated id : " + entity.getId());
+		} catch (IllegalArgumentException ex) {
+			log.warn("updating of entity :" + clazz.getSimpleName() + " failed " + ex);
 		}
+
+		log.debug("entity updated with id : " + entity.getId());
+
 	}
 
 	public void delete(T entity) {
@@ -143,11 +129,14 @@ public abstract class GenericRepoImpl<T extends Inventory> implements GenericRep
 			return;
 		log.debug("trying to delete entity " + clazz.getSimpleName() + " id : " + entity.getId());
 		try {
+
 			em.remove(entity);
+
 		} catch (IllegalArgumentException e) {
 
 			log.warn("enitity was not deleted " + e);
 		}
+		log.debug("entity deleted with id : " + entity.getId());
 	}
 
 	public void deleteById(long entityId) {
