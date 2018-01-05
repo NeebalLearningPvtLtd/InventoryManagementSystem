@@ -1,10 +1,12 @@
 package com.kossine.ims.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.kossine.ims.domain.AdapterUsedByVO;
 import com.kossine.ims.exceptions.ModelNotFoundException;
 import com.kossine.ims.models.Adapter;
 import com.kossine.ims.models.AdapterUsedBy;
@@ -33,24 +35,41 @@ public class AdapterUsedByService {
 		return usedbyRepo.save(entry).getId();
 	}
 
+	public List<AdapterUsedByVO> getAllAdaptersUsedPaged(Pageable pageable) {
 
-	public List<AdapterUsedBy> getAllAdaptersUsedPaged(Pageable pageable) {
-		
-		return usedbyRepo.findAllWithJoin(pageable);
-	}
-	
-	public List<AdapterUsedBy> getAllAdaptersUsedWithLocationQueryPaged(String locationQuery,Pageable pageable) {
+		return usedbyRepo.findAllWithJoin(pageable).stream().map(e -> {
+			AdapterUsedByVO domain = new AdapterUsedByVO();
+			domain.setId(e.getId());
+			domain.setLocation(e.getLocation());
+			domain.setTime(e.getTime());
+			if (e.getAdapter() != null)
+				domain.setAdapter_id(e.getAdapter().getId());
+			return domain;
+		}).collect(Collectors.toList());
 
-		return usedbyRepo.findAllByLocationQuery(locationQuery , pageable);
 	}
-	
-	public void updateAdapterUsedByLocation(Long id, String location) throws ModelNotFoundException{
-		AdapterUsedBy entity=usedbyRepo.findOne(id);
-		if(entity==null)
-			throw new ModelNotFoundException("provide a valid adapterusage id" , " Entity not found with id " + id);
+
+	public List<AdapterUsedByVO> getAllAdaptersUsedWithLocationQueryPaged(String locationQuery, Pageable pageable) {
+
+		return usedbyRepo.findAllByLocationQuery(locationQuery, pageable).stream().map(e -> {
+			AdapterUsedByVO domain = new AdapterUsedByVO();
+			domain.setId(e.getId());
+			domain.setLocation(e.getLocation());
+			domain.setTime(e.getTime());
+			if (e.getAdapter() != null)
+				domain.setAdapter_id(e.getAdapter().getId());
+			return domain;
+		}).collect(Collectors.toList());
+	}
+
+	public void updateAdapterUsedByLocation(Long id, String location) throws ModelNotFoundException {
+		AdapterUsedBy entity = usedbyRepo.findOne(id);
+		if (entity == null)
+			throw new ModelNotFoundException("provide a valid adapterusage id", " Entity not found with id " + id);
 		entity.setLocation(location);
 		usedbyRepo.save(entity);
 	}
+
 	public void deleteAdapterUsedByEntry(Long id) throws ModelNotFoundException {
 		if (usedbyRepo.findOne(id) == null)
 			throw new ModelNotFoundException("provide a valid adapterusage id ", " Entity not found with id " + id);

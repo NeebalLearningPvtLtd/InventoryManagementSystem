@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.kossine.ims.exceptions.ModelNotFoundException;
 import com.kossine.ims.models.Ram;
 import com.kossine.ims.repository.RamRepo;
-import com.kossine.ims.repository.exceptions.IntegrityConstraintViolationException;
 
 @Service
 public class RamService {
@@ -30,14 +29,14 @@ public class RamService {
 		return e;
 	}
 
-	public Long saveRamToDB(Ram e) throws IntegrityConstraintViolationException {
+	public Long saveRamToDB(Ram e) {
 
 		repo.save(e);
 		return repo.findByTag(e.getRamTag()).getId();
 
 	}
 
-	public void updateRam(Long id, Ram e) throws ModelNotFoundException, IntegrityConstraintViolationException {
+	public void updateRam(Long id, Ram e) throws ModelNotFoundException  {
 		Ram entry = repo.findOne(id);
 		if (entry == null)
 			throw new ModelNotFoundException("Ram was not found ", "Ram was not found with id " + id);

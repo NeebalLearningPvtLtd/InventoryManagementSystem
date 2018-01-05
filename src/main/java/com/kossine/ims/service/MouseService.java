@@ -9,14 +9,13 @@ import org.springframework.stereotype.Service;
 import com.kossine.ims.exceptions.ModelNotFoundException;
 import com.kossine.ims.models.Mouse;
 import com.kossine.ims.repository.MouseRepo;
-import com.kossine.ims.repository.exceptions.IntegrityConstraintViolationException;
 
 @Service
 public class MouseService {
 
 	@Autowired
 	MouseRepo repo;
-
+	
 	public List<Mouse> findAllMouse(Pageable pageable) {
 
 		return repo.findAll(pageable);
@@ -30,14 +29,14 @@ public class MouseService {
 		return e;
 	}
 
-	public Long saveMouseToDB(Mouse e) throws IntegrityConstraintViolationException {
+	public Long saveMouseToDB(Mouse e)  {
 
 		repo.save(e);
 		return repo.findByTag(e.getMouseTag()).getId();
 
 	}
 
-	public void updateMouse(Long id, Mouse e) throws ModelNotFoundException, IntegrityConstraintViolationException {
+	public void updateMouse(Long id, Mouse e) throws ModelNotFoundException{
 		Mouse entry = repo.findOne(id);
 		if (entry == null)
 			throw new ModelNotFoundException("Mouse was not found ", "Mouse was not found with id " + id);

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.kossine.ims.exceptions.ModelNotFoundException;
 import com.kossine.ims.models.Hdd;
 import com.kossine.ims.repository.HddRepo;
-import com.kossine.ims.repository.exceptions.IntegrityConstraintViolationException;
 
 @Service
 public class HddService {
@@ -30,14 +29,14 @@ public class HddService {
 		return e;
 	}
 
-	public Long saveHddToDB(Hdd e) throws IntegrityConstraintViolationException {
+	public Long saveHddToDB(Hdd e)   {
 
 		repo.save(e);
 		return repo.findByTag(e.getHddTag()).getId();
 
 	}
 
-	public void updateHdd(Long id, Hdd e) throws ModelNotFoundException, IntegrityConstraintViolationException {
+	public void updateHdd(Long id, Hdd e) throws ModelNotFoundException  {
 		Hdd entry = repo.findOne(id);
 		if (entry == null)
 			throw new ModelNotFoundException("Hdd was not found ", "Hdd was not found with id " + id);

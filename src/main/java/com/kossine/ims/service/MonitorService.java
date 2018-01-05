@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.kossine.ims.exceptions.ModelNotFoundException;
 import com.kossine.ims.models.Monitor;
 import com.kossine.ims.repository.MonitorRepo;
-import com.kossine.ims.repository.exceptions.IntegrityConstraintViolationException;
 
 @Service
 public class MonitorService {
@@ -30,14 +29,14 @@ public class MonitorService {
 		return e;
 	}
 
-	public Long saveMonitorToDB(Monitor e) throws IntegrityConstraintViolationException {
+	public Long saveMonitorToDB(Monitor e) {
 
 		repo.save(e);
 		return repo.findByTag(e.getMonitorTag()).getId();
 
 	}
 
-	public void updateMonitor(Long id, Monitor e) throws ModelNotFoundException, IntegrityConstraintViolationException {
+	public void updateMonitor(Long id, Monitor e) throws ModelNotFoundException {
 		Monitor entry = repo.findOne(id);
 		if (entry == null)
 			throw new ModelNotFoundException("Monitor was not found ", "Monitor was not found with id " + id);

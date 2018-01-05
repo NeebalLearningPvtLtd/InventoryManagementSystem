@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.kossine.ims.exceptions.ModelNotFoundException;
 import com.kossine.ims.models.Wifi;
 import com.kossine.ims.repository.WifiRepo;
-import com.kossine.ims.repository.exceptions.IntegrityConstraintViolationException;
 
 @Service
 public class WifiService {
@@ -30,14 +29,14 @@ public class WifiService {
 		return e;
 	}
 
-	public Long saveWifiToDB(Wifi e) throws IntegrityConstraintViolationException {
+	public Long saveWifiToDB(Wifi e) {
 
 		repo.save(e);
 		return repo.findByTag(e.getWifiTag()).getId();
 
 	}
 
-	public void updateWifi(Long id, Wifi e) throws ModelNotFoundException, IntegrityConstraintViolationException {
+	public void updateWifi(Long id, Wifi e) throws ModelNotFoundException  {
 		Wifi entry = repo.findOne(id);
 		if (entry == null)
 			throw new ModelNotFoundException("Wifi was not found ", "Wifi was not found with id " + id);

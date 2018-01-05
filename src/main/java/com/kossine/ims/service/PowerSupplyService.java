@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kossine.ims.exceptions.ModelNotFoundException;
 import com.kossine.ims.models.PowerSupply;
 import com.kossine.ims.repository.PowerSupplyRepo;
-import com.kossine.ims.repository.exceptions.IntegrityConstraintViolationException;
+
 
 @Service
 public class PowerSupplyService {
@@ -30,14 +30,14 @@ public class PowerSupplyService {
 		return e;
 	}
 
-	public Long savePowerSupplyToDB(PowerSupply e) throws IntegrityConstraintViolationException {
+	public Long savePowerSupplyToDB(PowerSupply e)  {
 
 		repo.save(e);
 		return repo.findByTag(e.getPowersupplyTag()).getId();
 
 	}
 
-	public void updatePowerSupply(Long id, PowerSupply e) throws ModelNotFoundException, IntegrityConstraintViolationException {
+	public void updatePowerSupply(Long id, PowerSupply e) throws ModelNotFoundException  {
 		PowerSupply entry = repo.findOne(id);
 		if (entry == null)
 			throw new ModelNotFoundException("PowerSupply was not found ", "PowerSupply was not found with id " + id);

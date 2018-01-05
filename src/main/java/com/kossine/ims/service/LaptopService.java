@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.kossine.ims.exceptions.ModelNotFoundException;
 import com.kossine.ims.models.Laptop;
 import com.kossine.ims.repository.LaptopRepo;
-import com.kossine.ims.repository.exceptions.IntegrityConstraintViolationException;
 
 @Service
 public class LaptopService {
@@ -30,14 +29,14 @@ public class LaptopService {
 		return e;
 	}
 
-	public Long saveLaptopToDB(Laptop e) throws IntegrityConstraintViolationException {
+	public Long saveLaptopToDB(Laptop e) {
 
 		repo.save(e);
 		return repo.findByTag(e.getLaptopTag()).getId();
 
 	}
 
-	public void updateLaptop(Long id, Laptop e) throws ModelNotFoundException, IntegrityConstraintViolationException {
+	public void updateLaptop(Long id, Laptop e) throws ModelNotFoundException {
 		Laptop entry = repo.findOne(id);
 		if (entry == null)
 			throw new ModelNotFoundException("Laptop was not found ", "Laptop was not found with id " + id);

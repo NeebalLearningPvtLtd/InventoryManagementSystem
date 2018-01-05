@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.kossine.ims.exceptions.ModelNotFoundException;
 import com.kossine.ims.models.KeyBoard;
 import com.kossine.ims.repository.KeyBoardRepo;
-import com.kossine.ims.repository.exceptions.IntegrityConstraintViolationException;
 
 @Service
 public class KeyBoardService {
@@ -30,14 +29,14 @@ public class KeyBoardService {
 		return e;
 	}
 
-	public Long saveKeyBoardToDB(KeyBoard e) throws IntegrityConstraintViolationException {
+	public Long saveKeyBoardToDB(KeyBoard e)   {
 
 		repo.save(e);
 		return repo.findByTag(e.getKeyboardTag()).getId();
 
 	}
 
-	public void updateKeyBoard(Long id, KeyBoard e) throws ModelNotFoundException, IntegrityConstraintViolationException {
+	public void updateKeyBoard(Long id, KeyBoard e) throws ModelNotFoundException {
 		KeyBoard entry = repo.findOne(id);
 		if (entry == null)
 			throw new ModelNotFoundException("KeyBoard was not found ", "KeyBoard was not found with id " + id);

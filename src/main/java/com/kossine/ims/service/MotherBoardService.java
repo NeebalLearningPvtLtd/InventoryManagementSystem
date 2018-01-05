@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.kossine.ims.exceptions.ModelNotFoundException;
 import com.kossine.ims.models.MotherBoard;
 import com.kossine.ims.repository.MotherBoardRepo;
-import com.kossine.ims.repository.exceptions.IntegrityConstraintViolationException;
 
 @Service
 public class MotherBoardService {
@@ -30,14 +29,14 @@ public class MotherBoardService {
 		return e;
 	}
 
-	public Long saveMotherBoardToDB(MotherBoard e) throws IntegrityConstraintViolationException {
+	public Long saveMotherBoardToDB(MotherBoard e)   {
 
 		repo.save(e);
 		return repo.findByTag(e.getMotherboardTag()).getId();
 
 	}
 
-	public void updateMotherBoard(Long id, MotherBoard e) throws ModelNotFoundException, IntegrityConstraintViolationException {
+	public void updateMotherBoard(Long id, MotherBoard e) throws ModelNotFoundException {
 		MotherBoard entry = repo.findOne(id);
 		if (entry == null)
 			throw new ModelNotFoundException("MotherBoard was not found ", "MotherBoard was not found with id " + id);
