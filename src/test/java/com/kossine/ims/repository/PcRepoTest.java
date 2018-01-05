@@ -51,4 +51,15 @@ public class PcRepoTest {
 	public void testFindAllWithJoin() {
 		System.out.println(pcrepo.findAllWithJoin(new PageRequest(0,1)));
 	}
+	@Test
+	public void testUpdate() {
+		
+		Pc e=pcrepo.findOne(2);
+		e.setHdd(hddrepo.findOne(2));
+		pcrepo.update(e);
+	}
+	@Test
+	public void  testDelete() {
+		pcrepo.delete(null);
+	}
 }
