@@ -138,20 +138,7 @@ public class Pc extends Inventory {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	/*public void copy(Pc updated) {
-		if (updated.getPcTag()!= null)
-			setPcTag(updated.getPcTag());
-		if (updated.getSerialNum() != null)
-			setSerialNum(updated.getSerialNum());
-		if (updated.getModelNum() != null)
-			setModelNum(updated.getModelNum());
-		if (updated.getBrand() != null)
-			setBrand(updated.getBrand());
-		if (updated.getVt() != null)
-			setVt(updated.getVt());
-		if (updated.getLocation() != null)
-			setLocation(updated.getLocation());
-	}*/
+
 	@Override
 	public String toString() {
 		return "Pc [pcTag=" + pcTag + ", processor=" + processor + ", ram=" + ram + ", hdd=" + hdd + ", mouse=" + mouse
