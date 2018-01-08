@@ -11,7 +11,7 @@
   * locate init.py in src/main/resources/database_files/
   * run init.py
   ```shell
-   python init.py
+   python3 init.py
   ```
 ## Description
  * This is the code to create an Inventory management automated system for Kossine's physical classrooms .
