@@ -1,7 +1,18 @@
 # InventoryManagementSystem
 > Rest based Inventory Management System build on Spring Boot Framework 
-## Clone the Repository
-> <code> git clone --recursive  https://github.com/NeebalLearningPvtLtd/InventoryManagementSystem.git </code>
+## Setup
+* Clone the Repository
+ ```shell
+ git clone --recursive https://github.com/NeebalLearningPvtLtd/InventoryManagementSystem.git
+ ```
+* Import in eclipse
+ <code>File > import > General > Projects from Folder or Archive </code>
+* Init DB Schema
+  * locate init.py in src/main/resources/database_files/
+  * run init.py
+  ```shell
+   python init.py
+  ```
 ## Description
  * This is the code to create an Inventory management automated system for Kossine's physical classrooms .
  * Design pattern used is M ~V~ C of spring boot's starter web .
