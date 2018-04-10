@@ -26,36 +26,36 @@ import com.kossine.ims.service.HddService;
 public class HddController {
 
 	@Autowired
-	HddService service;
+	HddService hddService;
 
 	@GetMapping("/get/all")
 	public List<Hdd> getAll(@PageableDefault(page=0 , size=20) Pageable pageable)  {
 		
-		return service.findAllHdd(pageable);
+		return hddService.findAllHdd(pageable);
 	}
 
 	@GetMapping("/get/{id:\\d+}")
 	public ResponseEntity<?> get(@PathVariable Long id) throws ModelNotFoundException {
 
-		return ResponseEntity.ok(service.findHddById(id));
+		return ResponseEntity.ok(hddService.findHddById(id));
 	}
 
 	@PostMapping(path = "/add", produces = "application/json")
 	public ResponseEntity<?> addHdd(@Valid @RequestBody Hdd hdd)   {
 
-		return ResponseEntity.ok("{ \"id\" : " + service.saveHddToDB(hdd) + "}");
+		return ResponseEntity.ok("{ \"id\" : " + hddService.saveHddToDB(hdd) + "}");
 	}
 
 	@PutMapping("/{id:\\d+}")
 	public ResponseEntity<?> updateHdd(@PathVariable Long id, @RequestBody Hdd hdd)
 			throws ModelNotFoundException  {
-		service.updateHdd(id, hdd);
+		hddService.updateHdd(id, hdd);
 		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("/{id:\\d+}")
 	public ResponseEntity<?> deleteHddById(@PathVariable Long id) throws ModelNotFoundException {
-		service.deleteHddById(id);
+		hddService.deleteHddById(id);
 		return ResponseEntity.ok().build();
 	}
 }

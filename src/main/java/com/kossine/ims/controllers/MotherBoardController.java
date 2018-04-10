@@ -26,36 +26,36 @@ import com.kossine.ims.service.MotherBoardService;
 public class MotherBoardController {
 
 	@Autowired
-	MotherBoardService service;
+	MotherBoardService motherboardService;
 
 	@GetMapping("/get/all")
 	public List<MotherBoard> getAll(@PageableDefault(page=0 , size=20) Pageable pageable)  {
 		
-		return service.findAllMotherBoard(pageable);
+		return motherboardService.findAllMotherBoard(pageable);
 	}
 
 	@GetMapping("/get/{id:\\d+}")
 	public ResponseEntity<?> get(@PathVariable Long id) throws ModelNotFoundException {
 
-		return ResponseEntity.ok(service.findMotherBoardById(id));
+		return ResponseEntity.ok(motherboardService.findMotherBoardById(id));
 	}
 
 	@PostMapping(path = "/add", produces = "application/json")
 	public ResponseEntity<?> addMotherBoard(@Valid @RequestBody MotherBoard motherboard) {
 
-		return ResponseEntity.ok("{ \"id\" : " + service.saveMotherBoardToDB(motherboard) + "}");
+		return ResponseEntity.ok("{ \"id\" : " + motherboardService.saveMotherBoardToDB(motherboard) + "}");
 	}
 
 	@PutMapping("/{id:\\d+}")
 	public ResponseEntity<?> updateMotherBoard(@PathVariable Long id, @RequestBody MotherBoard motherboard)
 			throws ModelNotFoundException  {
-		service.updateMotherBoard(id, motherboard);
+		motherboardService.updateMotherBoard(id, motherboard);
 		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("/{id:\\d+}")
 	public ResponseEntity<?> deleteMotherBoardById(@PathVariable Long id) throws ModelNotFoundException {
-		service.deleteMotherBoardById(id);
+		motherboardService.deleteMotherBoardById(id);
 		return ResponseEntity.ok().build();
 	}
 }

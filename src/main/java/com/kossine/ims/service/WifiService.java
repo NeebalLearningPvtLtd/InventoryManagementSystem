@@ -14,16 +14,16 @@ import com.kossine.ims.repository.WifiRepo;
 public class WifiService {
 
 	@Autowired
-	WifiRepo repo;
+	WifiRepo wifiRepo;
 
 	public List<Wifi> findAllWifi(Pageable pageable) {
 
-		return repo.findAll(pageable);
+		return wifiRepo.findAll(pageable);
 	}
 
 	public Wifi findWifiById(Long id) throws ModelNotFoundException {
 
-		Wifi e = repo.findOne(id);
+		Wifi e = wifiRepo.findOne(id);
 		if (e == null)
 			throw new ModelNotFoundException("Wifi was not found ", "Wifi was not found with id " + id);
 		return e;
@@ -31,28 +31,28 @@ public class WifiService {
 
 	public Long saveWifiToDB(Wifi e) {
 
-		repo.save(e);
-		return repo.findByTag(e.getWifiTag()).getId();
+		wifiRepo.save(e);
+		return wifiRepo.findByTag(e.getWifiTag()).getId();
 
 	}
 
 	public void updateWifi(Long id, Wifi e) throws ModelNotFoundException  {
-		Wifi entry = repo.findOne(id);
+		Wifi entry = wifiRepo.findOne(id);
 		if (entry == null)
 			throw new ModelNotFoundException("Wifi was not found ", "Wifi was not found with id " + id);
 
 		entry.copy(e);
-		repo.update(entry);
+		wifiRepo.update(entry);
 	}
 
 	public void deleteWifiById(Long id) throws ModelNotFoundException {
 
-		Wifi e = repo.findOne(id);
+		Wifi e = wifiRepo.findOne(id);
 
 		if (e == null)
 			throw new ModelNotFoundException("Wifi was not found ", "Wifi was not found with id " + id);
 
-		repo.delete(e);
+		wifiRepo.delete(e);
 
 	}
 }

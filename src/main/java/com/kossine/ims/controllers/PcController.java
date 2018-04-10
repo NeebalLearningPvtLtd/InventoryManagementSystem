@@ -26,35 +26,35 @@ import com.kossine.ims.service.PcService;
 public class PcController {
 
 	@Autowired
-	PcService service;
+	PcService pcService;
 
 	@GetMapping("/get/all")
 	public List<PcVO> getAll(@PageableDefault(page=0 , size=20) Pageable pageable)  {
 		
-		return service.findAllPc(pageable);
+		return pcService.findAllPc(pageable);
 	}
 
 	@GetMapping("/get/{id:\\d+}")
 	public ResponseEntity<?> get(@PathVariable Long id) throws ModelNotFoundException {
 
-		return ResponseEntity.ok(service.findPcById(id));
+		return ResponseEntity.ok(pcService.findPcById(id));
 	}
 
 	@PostMapping(path = "/add", produces = "application/json")
 	public ResponseEntity<?> addPc(@Valid @RequestBody PcVO pc)   {
-		return ResponseEntity.ok("{ \"id\" : " + service.savePcToDB(pc) + "}");
+		return ResponseEntity.ok("{ \"id\" : " + pcService.savePcToDB(pc) + "}");
 	}
 
 	@PutMapping("/{id:\\d+}")
 	public ResponseEntity<?> updatePc(@PathVariable Long id, @RequestBody PcVO pc)
 			throws ModelNotFoundException  {
-		service.updatePc(id, pc);
+		pcService.updatePc(id, pc);
 		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("/{id:\\d+}")
 	public ResponseEntity<?> deletePcById(@PathVariable Long id) throws ModelNotFoundException {
-		service.deletePcById(id);
+		pcService.deletePcById(id);
 		return ResponseEntity.ok().build();
 	}
 }

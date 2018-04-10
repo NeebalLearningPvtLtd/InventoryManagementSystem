@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,17 +27,17 @@ import com.kossine.ims.service.LaptopUsedByService;
 public class LaptopUsedByController {
 
 	@Autowired
-	private LaptopUsedByService service;
+	private LaptopUsedByService laptopUsedByService;
 
 	@GetMapping("/get/all")
 	public ResponseEntity<?> getAllLaptopUsedByWithOptionalQuery(
 			@RequestParam(name = "location", required = false) String locationQuery,
 			@PageableDefault(page = 0, value = 10) Pageable pageable) {
 
-		if (locationQuery == null || locationQuery.trim() == "")
-			return ResponseEntity.ok(service.getAllLaptopsUsedPaged(pageable));
+		if (StringUtils.isEmpty(locationQuery))
+			return ResponseEntity.ok(laptopUsedByService.getAllLaptopsUsedPaged(pageable));
 
-		return ResponseEntity.ok(service.getAllLaptopsUsedWithLocationQueryPaged(locationQuery, pageable));
+		return ResponseEntity.ok(laptopUsedByService.getAllLaptopsUsedWithLocationQueryPaged(locationQuery, pageable));
 
 	}
 
@@ -50,7 +51,7 @@ public class LaptopUsedByController {
 			return ResponseEntity.badRequest().body(new ApiError(HttpStatus.BAD_REQUEST,
 					"required json body parameters is not valid", "laptopTag and location required"));
 
-		return ResponseEntity.ok().body("{ \"id\":" + service.saveLaptopByLaptopTag(laptoptag, location) + "}");
+		return ResponseEntity.ok().body("{ \"id\":" + laptopUsedByService.saveLaptopByLaptopTag(laptoptag, location) + "}");
 
 	}
 
@@ -63,7 +64,7 @@ public class LaptopUsedByController {
 			return ResponseEntity.badRequest().body(new ApiError(HttpStatus.BAD_REQUEST,
 					"only location update is available", "location key was not found"));
 
-		service.updateLaptopUsedByLocation(id, location);
+		laptopUsedByService.updateLaptopUsedByLocation(id, location);
 		return ResponseEntity.ok().build();
 
 	}
@@ -71,7 +72,7 @@ public class LaptopUsedByController {
 	@DeleteMapping("/{id:\\d+}")
 	public ResponseEntity<?> deleteLaptopUsedBybasedOnId(@PathVariable("id") Long id) throws ModelNotFoundException {
 
-		service.deleteLaptopUsedByEntry(id);
+		laptopUsedByService.deleteLaptopUsedByEntry(id);
 		return ResponseEntity.ok().build();
 
 	}

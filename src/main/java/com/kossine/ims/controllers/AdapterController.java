@@ -26,36 +26,36 @@ import com.kossine.ims.service.AdapterService;
 public class AdapterController {
 
 	@Autowired
-	AdapterService service;
+	AdapterService adapterService;
 
 	@GetMapping("/get/all")
 	public List<Adapter> getAll(@PageableDefault(page=0 , size=20) Pageable pageable)  {
 		
-		return service.findAllAdapter(pageable);
+		return adapterService.findAllAdapter(pageable);
 	}
 
 	@GetMapping("/get/{id:\\d+}")
 	public ResponseEntity<?> get(@PathVariable Long id) throws ModelNotFoundException {
 
-		return ResponseEntity.ok(service.findAdapterById(id));
+		return ResponseEntity.ok(adapterService.findAdapterById(id));
 	}
 
 	@PostMapping(path = "/add", produces = "application/json")
 	public ResponseEntity<?> addAdapter(@Valid @RequestBody Adapter adapter)   {
 
-		return ResponseEntity.ok("{ \"id\" : " + service.saveAdapterToDB(adapter) + "}");
+		return ResponseEntity.ok("{ \"id\" : " + adapterService.saveAdapterToDB(adapter) + "}");
 	}
 
 	@PutMapping("/{id:\\d+}")
 	public ResponseEntity<?> updateAdapter(@PathVariable Long id, @RequestBody Adapter adapter)
 			throws ModelNotFoundException  {
-		service.updateAdapter(id, adapter);
+		adapterService.updateAdapter(id, adapter);
 		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("/{id:\\d+}")
 	public ResponseEntity<?> deleteAdapterById(@PathVariable Long id) throws ModelNotFoundException {
-		service.deleteAdapterById(id);
+		adapterService.deleteAdapterById(id);
 		return ResponseEntity.ok().build();
 	}
 }

@@ -26,36 +26,36 @@ import com.kossine.ims.service.KeyBoardService;
 public class KeyBoardController {
 
 	@Autowired
-	KeyBoardService service;
+	KeyBoardService keyboardService;
 
 	@GetMapping("/get/all")
 	public List<KeyBoard> getAll(@PageableDefault(page=0 , size=20) Pageable pageable)  {
 		
-		return service.findAllKeyBoard(pageable);
+		return keyboardService.findAllKeyBoard(pageable);
 	}
 
 	@GetMapping("/get/{id:\\d+}")
 	public ResponseEntity<?> get(@PathVariable Long id) throws ModelNotFoundException {
 
-		return ResponseEntity.ok(service.findKeyBoardById(id));
+		return ResponseEntity.ok(keyboardService.findKeyBoardById(id));
 	}
 
 	@PostMapping(path = "/add", produces = "application/json")
 	public ResponseEntity<?> addKeyBoard(@Valid @RequestBody KeyBoard keyboard) {
 
-		return ResponseEntity.ok("{ \"id\" : " + service.saveKeyBoardToDB(keyboard) + "}");
+		return ResponseEntity.ok("{ \"id\" : " + keyboardService.saveKeyBoardToDB(keyboard) + "}");
 	}
 
 	@PutMapping("/{id:\\d+}")
 	public ResponseEntity<?> updateKeyBoard(@PathVariable Long id, @RequestBody KeyBoard keyboard)
 			throws ModelNotFoundException  {
-		service.updateKeyBoard(id, keyboard);
+		keyboardService.updateKeyBoard(id, keyboard);
 		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("/{id:\\d+}")
 	public ResponseEntity<?> deleteKeyBoardById(@PathVariable Long id) throws ModelNotFoundException {
-		service.deleteKeyBoardById(id);
+		keyboardService.deleteKeyBoardById(id);
 		return ResponseEntity.ok().build();
 	}
 }

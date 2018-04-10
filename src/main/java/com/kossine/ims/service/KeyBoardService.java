@@ -14,16 +14,16 @@ import com.kossine.ims.repository.KeyBoardRepo;
 public class KeyBoardService {
 
 	@Autowired
-	KeyBoardRepo repo;
+	KeyBoardRepo keyboardRepo;
 
 	public List<KeyBoard> findAllKeyBoard(Pageable pageable) {
 
-		return repo.findAll(pageable);
+		return keyboardRepo.findAll(pageable);
 	}
 
 	public KeyBoard findKeyBoardById(Long id) throws ModelNotFoundException {
 
-		KeyBoard e = repo.findOne(id);
+		KeyBoard e = keyboardRepo.findOne(id);
 		if (e == null)
 			throw new ModelNotFoundException("KeyBoard was not found ", "KeyBoard was not found with id " + id);
 		return e;
@@ -31,28 +31,28 @@ public class KeyBoardService {
 
 	public Long saveKeyBoardToDB(KeyBoard e)   {
 
-		repo.save(e);
-		return repo.findByTag(e.getKeyboardTag()).getId();
+		keyboardRepo.save(e);
+		return keyboardRepo.findByTag(e.getKeyboardTag()).getId();
 
 	}
 
 	public void updateKeyBoard(Long id, KeyBoard e) throws ModelNotFoundException {
-		KeyBoard entry = repo.findOne(id);
+		KeyBoard entry = keyboardRepo.findOne(id);
 		if (entry == null)
 			throw new ModelNotFoundException("KeyBoard was not found ", "KeyBoard was not found with id " + id);
 
 		entry.copy(e);
-		repo.update(entry);
+		keyboardRepo.update(entry);
 	}
 
 	public void deleteKeyBoardById(Long id) throws ModelNotFoundException {
 
-		KeyBoard e = repo.findOne(id);
+		KeyBoard e = keyboardRepo.findOne(id);
 
 		if (e == null)
 			throw new ModelNotFoundException("KeyBoard was not found ", "KeyBoard was not found with id " + id);
 
-		repo.delete(e);
+		keyboardRepo.delete(e);
 
 	}
 }

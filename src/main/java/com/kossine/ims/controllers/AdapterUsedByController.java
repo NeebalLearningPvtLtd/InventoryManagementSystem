@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,17 +27,17 @@ import com.kossine.ims.service.AdapterUsedByService;
 public class AdapterUsedByController {
 
 	@Autowired
-	private AdapterUsedByService service;
+	private AdapterUsedByService adapterUsedByService;
 
 	@GetMapping("/get/all")
 	public ResponseEntity<?> getAllAdapterUsedByWithOptionalQuery(
 			@RequestParam(name = "location", required = false) String locationQuery,
 			@PageableDefault(page = 0, value = 10) Pageable pageable) {
 
-		if (locationQuery == null || locationQuery.trim() == "")
-			return ResponseEntity.ok(service.getAllAdaptersUsedPaged(pageable));
+		if (StringUtils.isEmpty(locationQuery))
+			return ResponseEntity.ok(adapterUsedByService.getAllAdaptersUsedPaged(pageable));
 
-		return ResponseEntity.ok(service.getAllAdaptersUsedWithLocationQueryPaged(locationQuery, pageable));
+		return ResponseEntity.ok(adapterUsedByService.getAllAdaptersUsedWithLocationQueryPaged(locationQuery, pageable));
 
 	}
 
@@ -50,7 +51,7 @@ public class AdapterUsedByController {
 			return ResponseEntity.badRequest().body(new ApiError(HttpStatus.BAD_REQUEST,
 					"required json body parameters is not valid", "adapterTag and location required"));
 
-		return ResponseEntity.ok().body("{ \"id\":" + service.saveAdapterByAdapterTag(adaptertag, location) + "}");
+		return ResponseEntity.ok().body("{ \"id\":" + adapterUsedByService.saveAdapterByAdapterTag(adaptertag, location) + "}");
 
 	}
 
@@ -63,7 +64,7 @@ public class AdapterUsedByController {
 			return ResponseEntity.badRequest().body(new ApiError(HttpStatus.BAD_REQUEST,
 					"only location update is available", "location key was not found"));
 
-		service.updateAdapterUsedByLocation(id, location);
+		adapterUsedByService.updateAdapterUsedByLocation(id, location);
 		return ResponseEntity.ok().build();
 
 	}
@@ -71,7 +72,7 @@ public class AdapterUsedByController {
 	@DeleteMapping("/{id:\\d+}")
 	public ResponseEntity<?> deleteAdapterUsedBybasedOnId(@PathVariable("id") Long id) throws ModelNotFoundException {
 
-		service.deleteAdapterUsedByEntry(id);
+		adapterUsedByService.deleteAdapterUsedByEntry(id);
 		return ResponseEntity.ok().build();
 
 	}

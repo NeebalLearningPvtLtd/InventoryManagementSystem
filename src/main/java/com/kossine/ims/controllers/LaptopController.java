@@ -26,36 +26,36 @@ import com.kossine.ims.service.LaptopService;
 public class LaptopController {
 
 	@Autowired
-	LaptopService service;
+	LaptopService laptopService;
 
 	@GetMapping("/get/all")
 	public List<Laptop> getAll(@PageableDefault(page=0 , size=20) Pageable pageable)  {
 		
-		return service.findAllLaptop(pageable);
+		return laptopService.findAllLaptop(pageable);
 	}
 
 	@GetMapping("/get/{id:\\d+}")
 	public ResponseEntity<?> get(@PathVariable Long id) throws ModelNotFoundException {
 
-		return ResponseEntity.ok(service.findLaptopById(id));
+		return ResponseEntity.ok(laptopService.findLaptopById(id));
 	}
 
 	@PostMapping(path = "/add", produces = "application/json")
 	public ResponseEntity<?> addLaptop(@Valid @RequestBody Laptop laptop) {
 
-		return ResponseEntity.ok("{ \"id\" : " + service.saveLaptopToDB(laptop) + "}");
+		return ResponseEntity.ok("{ \"id\" : " + laptopService.saveLaptopToDB(laptop) + "}");
 	}
 
 	@PutMapping("/{id:\\d+}")
 	public ResponseEntity<?> updateLaptop(@PathVariable Long id, @RequestBody Laptop laptop)
 			throws ModelNotFoundException  {
-		service.updateLaptop(id, laptop);
+		laptopService.updateLaptop(id, laptop);
 		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("/{id:\\d+}")
 	public ResponseEntity<?> deleteLaptopById(@PathVariable Long id) throws ModelNotFoundException {
-		service.deleteLaptopById(id);
+		laptopService.deleteLaptopById(id);
 		return ResponseEntity.ok().build();
 	}
 }

@@ -14,16 +14,16 @@ import com.kossine.ims.repository.LaptopRepo;
 public class LaptopService {
 
 	@Autowired
-	LaptopRepo repo;
+	LaptopRepo laptopRepo;
 
 	public List<Laptop> findAllLaptop(Pageable pageable) {
 
-		return repo.findAll(pageable);
+		return laptopRepo.findAll(pageable);
 	}
 
 	public Laptop findLaptopById(Long id) throws ModelNotFoundException {
 
-		Laptop e = repo.findOne(id);
+		Laptop e = laptopRepo.findOne(id);
 		if (e == null)
 			throw new ModelNotFoundException("Laptop was not found ", "Laptop was not found with id " + id);
 		return e;
@@ -31,28 +31,28 @@ public class LaptopService {
 
 	public Long saveLaptopToDB(Laptop e) {
 
-		repo.save(e);
-		return repo.findByTag(e.getLaptopTag()).getId();
+		laptopRepo.save(e);
+		return laptopRepo.findByTag(e.getLaptopTag()).getId();
 
 	}
 
 	public void updateLaptop(Long id, Laptop e) throws ModelNotFoundException {
-		Laptop entry = repo.findOne(id);
+		Laptop entry = laptopRepo.findOne(id);
 		if (entry == null)
 			throw new ModelNotFoundException("Laptop was not found ", "Laptop was not found with id " + id);
 
 		entry.copy(e);
-		repo.update(entry);
+		laptopRepo.update(entry);
 	}
 
 	public void deleteLaptopById(Long id) throws ModelNotFoundException {
 
-		Laptop e = repo.findOne(id);
+		Laptop e = laptopRepo.findOne(id);
 
 		if (e == null)
 			throw new ModelNotFoundException("Laptop was not found ", "Laptop was not found with id " + id);
 
-		repo.delete(e);
+		laptopRepo.delete(e);
 
 	}
 }

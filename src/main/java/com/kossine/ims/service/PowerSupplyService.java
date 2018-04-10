@@ -15,16 +15,16 @@ import com.kossine.ims.repository.PowerSupplyRepo;
 public class PowerSupplyService {
 
 	@Autowired
-	PowerSupplyRepo repo;
+	PowerSupplyRepo powersupplyRepo;
 
 	public List<PowerSupply> findAllPowerSupply(Pageable pageable) {
 
-		return repo.findAll(pageable);
+		return powersupplyRepo.findAll(pageable);
 	}
 
 	public PowerSupply findPowerSupplyById(Long id) throws ModelNotFoundException {
 
-		PowerSupply e = repo.findOne(id);
+		PowerSupply e = powersupplyRepo.findOne(id);
 		if (e == null)
 			throw new ModelNotFoundException("PowerSupply was not found ", "PowerSupply was not found with id " + id);
 		return e;
@@ -32,28 +32,28 @@ public class PowerSupplyService {
 
 	public Long savePowerSupplyToDB(PowerSupply e)  {
 
-		repo.save(e);
-		return repo.findByTag(e.getPowersupplyTag()).getId();
+		powersupplyRepo.save(e);
+		return powersupplyRepo.findByTag(e.getPowersupplyTag()).getId();
 
 	}
 
 	public void updatePowerSupply(Long id, PowerSupply e) throws ModelNotFoundException  {
-		PowerSupply entry = repo.findOne(id);
+		PowerSupply entry = powersupplyRepo.findOne(id);
 		if (entry == null)
 			throw new ModelNotFoundException("PowerSupply was not found ", "PowerSupply was not found with id " + id);
 
 		entry.copy(e);
-		repo.update(entry);
+		powersupplyRepo.update(entry);
 	}
 
 	public void deletePowerSupplyById(Long id) throws ModelNotFoundException {
 
-		PowerSupply e = repo.findOne(id);
+		PowerSupply e = powersupplyRepo.findOne(id);
 
 		if (e == null)
 			throw new ModelNotFoundException("PowerSupply was not found ", "PowerSupply was not found with id " + id);
 
-		repo.delete(e);
+		powersupplyRepo.delete(e);
 
 	}
 }

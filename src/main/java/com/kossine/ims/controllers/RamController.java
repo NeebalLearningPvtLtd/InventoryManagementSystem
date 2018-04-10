@@ -26,36 +26,36 @@ import com.kossine.ims.service.RamService;
 public class RamController {
 
 	@Autowired
-	RamService service;
+	RamService ramService;
 
 	@GetMapping("/get/all")
 	public List<Ram> getAll(@PageableDefault(page=0 , size=20) Pageable pageable)  {
 		
-		return service.findAllRam(pageable);
+		return ramService.findAllRam(pageable);
 	}
 
 	@GetMapping("/get/{id:\\d+}")
 	public ResponseEntity<?> get(@PathVariable Long id) throws ModelNotFoundException {
 
-		return ResponseEntity.ok(service.findRamById(id));
+		return ResponseEntity.ok(ramService.findRamById(id));
 	}
 
 	@PostMapping(path = "/add", produces = "application/json")
 	public ResponseEntity<?> addRam(@Valid @RequestBody Ram ram){
 
-		return ResponseEntity.ok("{ \"id\" : " + service.saveRamToDB(ram) + "}");
+		return ResponseEntity.ok("{ \"id\" : " + ramService.saveRamToDB(ram) + "}");
 	}
 
 	@PutMapping("/{id:\\d+}")
 	public ResponseEntity<?> updateRam(@PathVariable Long id, @RequestBody Ram ram)
 			throws ModelNotFoundException  {
-		service.updateRam(id, ram);
+		ramService.updateRam(id, ram);
 		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("/{id:\\d+}")
 	public ResponseEntity<?> deleteRamById(@PathVariable Long id) throws ModelNotFoundException {
-		service.deleteRamById(id);
+		ramService.deleteRamById(id);
 		return ResponseEntity.ok().build();
 	}
 }

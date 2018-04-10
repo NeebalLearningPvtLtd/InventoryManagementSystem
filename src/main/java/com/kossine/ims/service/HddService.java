@@ -14,16 +14,16 @@ import com.kossine.ims.repository.HddRepo;
 public class HddService {
 
 	@Autowired
-	HddRepo repo;
+	HddRepo hddRepo;
 
 	public List<Hdd> findAllHdd(Pageable pageable) {
 
-		return repo.findAll(pageable);
+		return hddRepo.findAll(pageable);
 	}
 
 	public Hdd findHddById(Long id) throws ModelNotFoundException {
 
-		Hdd e = repo.findOne(id);
+		Hdd e = hddRepo.findOne(id);
 		if (e == null)
 			throw new ModelNotFoundException("Hdd was not found ", "Hdd was not found with id " + id);
 		return e;
@@ -31,28 +31,28 @@ public class HddService {
 
 	public Long saveHddToDB(Hdd e)   {
 
-		repo.save(e);
-		return repo.findByTag(e.getHddTag()).getId();
+		hddRepo.save(e);
+		return hddRepo.findByTag(e.getHddTag()).getId();
 
 	}
 
 	public void updateHdd(Long id, Hdd e) throws ModelNotFoundException  {
-		Hdd entry = repo.findOne(id);
+		Hdd entry = hddRepo.findOne(id);
 		if (entry == null)
 			throw new ModelNotFoundException("Hdd was not found ", "Hdd was not found with id " + id);
 
 		entry.copy(e);
-		repo.update(entry);
+		hddRepo.update(entry);
 	}
 
 	public void deleteHddById(Long id) throws ModelNotFoundException {
 
-		Hdd e = repo.findOne(id);
+		Hdd e = hddRepo.findOne(id);
 
 		if (e == null)
 			throw new ModelNotFoundException("Hdd was not found ", "Hdd was not found with id " + id);
 
-		repo.delete(e);
+		hddRepo.delete(e);
 
 	}
 }

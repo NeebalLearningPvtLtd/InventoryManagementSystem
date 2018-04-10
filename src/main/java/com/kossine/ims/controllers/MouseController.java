@@ -26,36 +26,36 @@ import com.kossine.ims.service.MouseService;
 public class MouseController {
 
 	@Autowired
-	MouseService service;
+	MouseService mouseService;
 
 	@GetMapping("/get/all")
 	public List<Mouse> getAll(@PageableDefault(page=0 , size=20) Pageable pageable)  {
 		
-		return service.findAllMouse(pageable);
+		return mouseService.findAllMouse(pageable);
 	}
 
 	@GetMapping("/get/{id:\\d+}")
 	public ResponseEntity<?> get(@PathVariable Long id) throws ModelNotFoundException {
 
-		return ResponseEntity.ok(service.findMouseById(id));
+		return ResponseEntity.ok(mouseService.findMouseById(id));
 	}
 
 	@PostMapping(path = "/add", produces = "application/json")
 	public ResponseEntity<?> addMouse(@Valid @RequestBody Mouse mouse){
 
-		return ResponseEntity.ok("{ \"id\" : " + service.saveMouseToDB(mouse) + "}");
+		return ResponseEntity.ok("{ \"id\" : " + mouseService.saveMouseToDB(mouse) + "}");
 	}
 
 	@PutMapping("/{id:\\d+}")
 	public ResponseEntity<?> updateMouse(@PathVariable Long id, @RequestBody Mouse mouse)
 			throws ModelNotFoundException  {
-		service.updateMouse(id, mouse);
+		mouseService.updateMouse(id, mouse);
 		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("/{id:\\d+}")
 	public ResponseEntity<?> deleteMouseById(@PathVariable Long id) throws ModelNotFoundException {
-		service.deleteMouseById(id);
+		mouseService.deleteMouseById(id);
 		return ResponseEntity.ok().build();
 	}
 }
