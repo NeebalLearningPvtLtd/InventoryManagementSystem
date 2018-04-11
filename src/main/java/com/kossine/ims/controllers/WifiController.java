@@ -26,36 +26,36 @@ import com.kossine.ims.service.WifiService;
 public class WifiController {
 
 	@Autowired
-	WifiService service;
+	WifiService wifiService;
 
 	@GetMapping("/get/all")
 	public List<Wifi> getAll(@PageableDefault(page=0 , size=20) Pageable pageable)  {
 		
-		return service.findAllWifi(pageable);
+		return wifiService.findAllWifi(pageable);
 	}
 
 	@GetMapping("/get/{id:\\d+}")
 	public ResponseEntity<?> get(@PathVariable Long id) throws ModelNotFoundException {
 
-		return ResponseEntity.ok(service.findWifiById(id));
+		return ResponseEntity.ok(wifiService.findWifiById(id));
 	}
 
 	@PostMapping(path = "/add", produces = "application/json")
 	public ResponseEntity<?> addWifi(@Valid @RequestBody Wifi wifi){
 
-		return ResponseEntity.ok("{ \"id\" : " + service.saveWifiToDB(wifi) + "}");
+		return ResponseEntity.ok("{ \"id\" : " + wifiService.saveWifiToDB(wifi) + "}");
 	}
 
 	@PutMapping("/{id:\\d+}")
 	public ResponseEntity<?> updateWifi(@PathVariable Long id, @RequestBody Wifi wifi)
 			throws ModelNotFoundException  {
-		service.updateWifi(id, wifi);
+		wifiService.updateWifi(id, wifi);
 		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("/{id:\\d+}")
 	public ResponseEntity<?> deleteWifiById(@PathVariable Long id) throws ModelNotFoundException {
-		service.deleteWifiById(id);
+		wifiService.deleteWifiById(id);
 		return ResponseEntity.ok().build();
 	}
 }

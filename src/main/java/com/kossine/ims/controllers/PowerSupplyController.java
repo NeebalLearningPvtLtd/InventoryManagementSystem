@@ -26,36 +26,36 @@ import com.kossine.ims.service.PowerSupplyService;
 public class PowerSupplyController {
 
 	@Autowired
-	PowerSupplyService service;
+	PowerSupplyService powersupplyService;
 
 	@GetMapping("/get/all")
 	public List<PowerSupply> getAll(@PageableDefault(page=0 , size=20) Pageable pageable)  {
 		
-		return service.findAllPowerSupply(pageable);
+		return powersupplyService.findAllPowerSupply(pageable);
 	}
 
 	@GetMapping("/get/{id:\\d+}")
 	public ResponseEntity<?> get(@PathVariable Long id) throws ModelNotFoundException {
 
-		return ResponseEntity.ok(service.findPowerSupplyById(id));
+		return ResponseEntity.ok(powersupplyService.findPowerSupplyById(id));
 	}
 
 	@PostMapping(path = "/add", produces = "application/json")
 	public ResponseEntity<?> addPowerSupply(@Valid @RequestBody PowerSupply powersupply){
 
-		return ResponseEntity.ok("{ \"id\" : " + service.savePowerSupplyToDB(powersupply) + "}");
+		return ResponseEntity.ok("{ \"id\" : " + powersupplyService.savePowerSupplyToDB(powersupply) + "}");
 	}
 
 	@PutMapping("/{id:\\d+}")
 	public ResponseEntity<?> updatePowerSupply(@PathVariable Long id, @RequestBody PowerSupply powersupply)
 			throws ModelNotFoundException  {
-		service.updatePowerSupply(id, powersupply);
+		powersupplyService.updatePowerSupply(id, powersupply);
 		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("/{id:\\d+}")
 	public ResponseEntity<?> deletePowerSupplyById(@PathVariable Long id) throws ModelNotFoundException {
-		service.deletePowerSupplyById(id);
+		powersupplyService.deletePowerSupplyById(id);
 		return ResponseEntity.ok().build();
 	}
 }

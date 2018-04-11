@@ -26,36 +26,36 @@ import com.kossine.ims.service.MonitorService;
 public class MonitorController {
 
 	@Autowired
-	MonitorService service;
+	MonitorService monitorService;
 
 	@GetMapping("/get/all")
 	public List<Monitor> getAll(@PageableDefault(page=0 , size=20) Pageable pageable)  {
 		
-		return service.findAllMonitor(pageable);
+		return monitorService.findAllMonitor(pageable);
 	}
 
 	@GetMapping("/get/{id:\\d+}")
 	public ResponseEntity<?> get(@PathVariable Long id) throws ModelNotFoundException {
 
-		return ResponseEntity.ok(service.findMonitorById(id));
+		return ResponseEntity.ok(monitorService.findMonitorById(id));
 	}
 
 	@PostMapping(path = "/add", produces = "application/json")
 	public ResponseEntity<?> addMonitor(@Valid @RequestBody Monitor monitor){
 
-		return ResponseEntity.ok("{ \"id\" : " + service.saveMonitorToDB(monitor) + "}");
+		return ResponseEntity.ok("{ \"id\" : " + monitorService.saveMonitorToDB(monitor) + "}");
 	}
 
 	@PutMapping("/{id:\\d+}")
 	public ResponseEntity<?> updateMonitor(@PathVariable Long id, @RequestBody Monitor monitor)
 			throws ModelNotFoundException  {
-		service.updateMonitor(id, monitor);
+		monitorService.updateMonitor(id, monitor);
 		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("/{id:\\d+}")
 	public ResponseEntity<?> deleteMonitorById(@PathVariable Long id) throws ModelNotFoundException {
-		service.deleteMonitorById(id);
+		monitorService.deleteMonitorById(id);
 		return ResponseEntity.ok().build();
 	}
 }

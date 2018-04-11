@@ -14,16 +14,16 @@ import com.kossine.ims.repository.MouseRepo;
 public class MouseService {
 
 	@Autowired
-	MouseRepo repo;
+	MouseRepo mouseRepo;
 	
 	public List<Mouse> findAllMouse(Pageable pageable) {
 
-		return repo.findAll(pageable);
+		return mouseRepo.findAll(pageable);
 	}
 
 	public Mouse findMouseById(Long id) throws ModelNotFoundException {
 
-		Mouse e = repo.findOne(id);
+		Mouse e = mouseRepo.findOne(id);
 		if (e == null)
 			throw new ModelNotFoundException("Mouse was not found ", "Mouse was not found with id " + id);
 		return e;
@@ -31,28 +31,28 @@ public class MouseService {
 
 	public Long saveMouseToDB(Mouse e)  {
 
-		repo.save(e);
-		return repo.findByTag(e.getMouseTag()).getId();
+		mouseRepo.save(e);
+		return mouseRepo.findByTag(e.getMouseTag()).getId();
 
 	}
 
 	public void updateMouse(Long id, Mouse e) throws ModelNotFoundException{
-		Mouse entry = repo.findOne(id);
+		Mouse entry = mouseRepo.findOne(id);
 		if (entry == null)
 			throw new ModelNotFoundException("Mouse was not found ", "Mouse was not found with id " + id);
 
 		entry.copy(e);
-		repo.update(entry);
+		mouseRepo.update(entry);
 	}
 
 	public void deleteMouseById(Long id) throws ModelNotFoundException {
 
-		Mouse e = repo.findOne(id);
+		Mouse e = mouseRepo.findOne(id);
 
 		if (e == null)
 			throw new ModelNotFoundException("Mouse was not found ", "Mouse was not found with id " + id);
 
-		repo.delete(e);
+		mouseRepo.delete(e);
 
 	}
 }

@@ -14,16 +14,16 @@ import com.kossine.ims.repository.MonitorRepo;
 public class MonitorService {
 
 	@Autowired
-	MonitorRepo repo;
+	MonitorRepo monitorRepo;
 
 	public List<Monitor> findAllMonitor(Pageable pageable) {
 
-		return repo.findAll(pageable);
+		return monitorRepo.findAll(pageable);
 	}
 
 	public Monitor findMonitorById(Long id) throws ModelNotFoundException {
 
-		Monitor e = repo.findOne(id);
+		Monitor e = monitorRepo.findOne(id);
 		if (e == null)
 			throw new ModelNotFoundException("Monitor was not found ", "Monitor was not found with id " + id);
 		return e;
@@ -31,28 +31,28 @@ public class MonitorService {
 
 	public Long saveMonitorToDB(Monitor e) {
 
-		repo.save(e);
-		return repo.findByTag(e.getMonitorTag()).getId();
+		monitorRepo.save(e);
+		return monitorRepo.findByTag(e.getMonitorTag()).getId();
 
 	}
 
 	public void updateMonitor(Long id, Monitor e) throws ModelNotFoundException {
-		Monitor entry = repo.findOne(id);
+		Monitor entry = monitorRepo.findOne(id);
 		if (entry == null)
 			throw new ModelNotFoundException("Monitor was not found ", "Monitor was not found with id " + id);
 
 		entry.copy(e);
-		repo.update(entry);
+		monitorRepo.update(entry);
 	}
 
 	public void deleteMonitorById(Long id) throws ModelNotFoundException {
 
-		Monitor e = repo.findOne(id);
+		Monitor e = monitorRepo.findOne(id);
 
 		if (e == null)
 			throw new ModelNotFoundException("Monitor was not found ", "Monitor was not found with id " + id);
 
-		repo.delete(e);
+		monitorRepo.delete(e);
 
 	}
 }

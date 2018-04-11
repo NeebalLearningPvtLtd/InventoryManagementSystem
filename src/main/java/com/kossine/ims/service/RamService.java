@@ -14,16 +14,16 @@ import com.kossine.ims.repository.RamRepo;
 public class RamService {
 
 	@Autowired
-	RamRepo repo;
+	RamRepo ramRepo;
 
 	public List<Ram> findAllRam(Pageable pageable) {
 
-		return repo.findAll(pageable);
+		return ramRepo.findAll(pageable);
 	}
 
 	public Ram findRamById(Long id) throws ModelNotFoundException {
 
-		Ram e = repo.findOne(id);
+		Ram e = ramRepo.findOne(id);
 		if (e == null)
 			throw new ModelNotFoundException("Ram was not found ", "Ram was not found with id " + id);
 		return e;
@@ -31,28 +31,28 @@ public class RamService {
 
 	public Long saveRamToDB(Ram e) {
 
-		repo.save(e);
-		return repo.findByTag(e.getRamTag()).getId();
+		ramRepo.save(e);
+		return ramRepo.findByTag(e.getRamTag()).getId();
 
 	}
 
 	public void updateRam(Long id, Ram e) throws ModelNotFoundException  {
-		Ram entry = repo.findOne(id);
+		Ram entry = ramRepo.findOne(id);
 		if (entry == null)
 			throw new ModelNotFoundException("Ram was not found ", "Ram was not found with id " + id);
 
 		entry.copy(e);
-		repo.update(entry);
+		ramRepo.update(entry);
 	}
 
 	public void deleteRamById(Long id) throws ModelNotFoundException {
 
-		Ram e = repo.findOne(id);
+		Ram e = ramRepo.findOne(id);
 
 		if (e == null)
 			throw new ModelNotFoundException("Ram was not found ", "Ram was not found with id " + id);
 
-		repo.delete(e);
+		ramRepo.delete(e);
 
 	}
 }

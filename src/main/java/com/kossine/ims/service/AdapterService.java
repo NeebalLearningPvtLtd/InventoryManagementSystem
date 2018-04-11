@@ -14,16 +14,16 @@ import com.kossine.ims.repository.AdapterRepo;
 public class AdapterService {
 
 	@Autowired
-	AdapterRepo repo;
+	AdapterRepo adapterRepo;
 
 	public List<Adapter> findAllAdapter(Pageable pageable) {
 
-		return repo.findAll(pageable);
+		return adapterRepo.findAll(pageable);
 	}
 
 	public Adapter findAdapterById(Long id) throws ModelNotFoundException {
 
-		Adapter e = repo.findOne(id);
+		Adapter e = adapterRepo.findOne(id);
 		if (e == null)
 			throw new ModelNotFoundException("Adapter was not found ", "Adapter was not found with id " + id);
 		return e;
@@ -31,28 +31,28 @@ public class AdapterService {
 
 	public Long saveAdapterToDB(Adapter e)  {
 
-		repo.save(e);
-		return repo.findByTag(e.getAdapterTag()).getId();
+		adapterRepo.save(e);
+		return adapterRepo.findByTag(e.getAdapterTag()).getId();
 
 	}
 
 	public void updateAdapter(Long id, Adapter e) throws ModelNotFoundException {
-		Adapter entry = repo.findOne(id);
+		Adapter entry = adapterRepo.findOne(id);
 		if (entry == null)
 			throw new ModelNotFoundException("Adapter was not found ", "Adapter was not found with id " + id);
 
 		entry.copy(e);
-		repo.update(entry);
+		adapterRepo.update(entry);
 	}
 
 	public void deleteAdapterById(Long id) throws ModelNotFoundException {
 
-		Adapter e = repo.findOne(id);
+		Adapter e = adapterRepo.findOne(id);
 
 		if (e == null)
 			throw new ModelNotFoundException("Adapter was not found ", "Adapter was not found with id " + id);
 
-		repo.delete(e);
+		adapterRepo.delete(e);
 
 	}
 }

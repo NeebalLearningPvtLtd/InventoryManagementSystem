@@ -14,16 +14,16 @@ import com.kossine.ims.repository.MotherBoardRepo;
 public class MotherBoardService {
 
 	@Autowired
-	MotherBoardRepo repo;
+	MotherBoardRepo motherboardRepo;
 
 	public List<MotherBoard> findAllMotherBoard(Pageable pageable) {
 
-		return repo.findAll(pageable);
+		return motherboardRepo.findAll(pageable);
 	}
 
 	public MotherBoard findMotherBoardById(Long id) throws ModelNotFoundException {
 
-		MotherBoard e = repo.findOne(id);
+		MotherBoard e = motherboardRepo.findOne(id);
 		if (e == null)
 			throw new ModelNotFoundException("MotherBoard was not found ", "MotherBoard was not found with id " + id);
 		return e;
@@ -31,28 +31,28 @@ public class MotherBoardService {
 
 	public Long saveMotherBoardToDB(MotherBoard e)   {
 
-		repo.save(e);
-		return repo.findByTag(e.getMotherboardTag()).getId();
+		motherboardRepo.save(e);
+		return motherboardRepo.findByTag(e.getMotherboardTag()).getId();
 
 	}
 
 	public void updateMotherBoard(Long id, MotherBoard e) throws ModelNotFoundException {
-		MotherBoard entry = repo.findOne(id);
+		MotherBoard entry = motherboardRepo.findOne(id);
 		if (entry == null)
 			throw new ModelNotFoundException("MotherBoard was not found ", "MotherBoard was not found with id " + id);
 
 		entry.copy(e);
-		repo.update(entry);
+		motherboardRepo.update(entry);
 	}
 
 	public void deleteMotherBoardById(Long id) throws ModelNotFoundException {
 
-		MotherBoard e = repo.findOne(id);
+		MotherBoard e = motherboardRepo.findOne(id);
 
 		if (e == null)
 			throw new ModelNotFoundException("MotherBoard was not found ", "MotherBoard was not found with id " + id);
 
-		repo.delete(e);
+		motherboardRepo.delete(e);
 
 	}
 }
