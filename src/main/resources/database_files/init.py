@@ -33,9 +33,9 @@ from sys import argv as args
 
 
 usage = """
-usage : python init.py [--dbname <name of the database>]
+usage : python3 init.py [--dbname <name of the database>]
 
-example : python init.py --dbname InventoryManagementSystem
+example : python3 init.py --dbname InventoryManagementSystem
 """
 
 if(len(args) < 3 or args[1] != '--dbname'):
