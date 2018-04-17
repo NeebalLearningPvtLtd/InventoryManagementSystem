@@ -9,7 +9,6 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.kossine.ims.models.Inventory;
-import com.kossine.ims.models.Laptop;
 
 @TestPropertySource(locations = "classpath:application.properties")
 @RunWith(SpringRunner.class)
@@ -24,10 +23,13 @@ public class FileParserTest {
 	public void test() throws Exception {
 		File formatFile = new File(formatfile);
 		File excel = new File(excelfile);
-		FileParser fp = new FileParser(excel, formatFile);
-
-		for (Inventory e : fp.parseFile().get(Laptop.class))
-			System.out.println(((Laptop) e).getDop());
+		FileParser<Inventory> fp = new FileParser<>(excel, formatFile);
+		
+		fp.parseFile().forEach((clazz,list)->{
+			System.out.println("content for:"+clazz.getName());	
+			list.forEach(System.out::println);	
+			
+		});
 	}
 
 }

@@ -90,7 +90,7 @@ public class ExcelToDB {
 	public void perform() {
 
 		try {
-			FileParser fp = new FileParser(excelFile, formatFile);
+			FileParser<Inventory> fp = new FileParser<>(excelFile, formatFile);
 			Map<Class<? extends Inventory>, List<Inventory>> map = null;
 			try {
 				map = fp.parseFile();
