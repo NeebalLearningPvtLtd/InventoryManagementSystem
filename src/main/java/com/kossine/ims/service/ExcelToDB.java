@@ -91,11 +91,11 @@ public class ExcelToDB {
 
 		try {
 			FileParser<Inventory> fp = new FileParser<>(excelFile, formatFile);
-			Map<Class<? extends Inventory>, List<Inventory>> map = null;
+			Map<Class<Inventory>, List<Inventory>> map = null;
 			try {
 				map = fp.parseFile();
 				log.debug("calling parse file ");
-				for (Entry<Class<? extends Inventory>, List<Inventory>> pair : map.entrySet()) {
+				for (Entry<Class<Inventory>, List<Inventory>> pair : map.entrySet()) {
 					Class<? extends Inventory> clazz=null;
 					List<?> inventories=null;
 					try {
