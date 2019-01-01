@@ -41,7 +41,3 @@
  > see [pom.xml](https://github.com/NeebalLearningPvtLtd/InventoryManagementSystem/blob/master/pom.xml) 
  ## sub-modules
  > [Excel-to-POJO](https://github.com/NeebalLearningPvtLtd/Excel-to-POJO) was used for maping excel data to POJO's found in models package
-## TODO
-* standardize to UTC timezone  
-* Search based criteria  
-* logging 
